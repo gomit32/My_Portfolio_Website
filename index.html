@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gomit Tyagi's Portfolio</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts - Inter for clean typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        /* Base styles for light mode */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc; /* Light background */
+            color: #334155; /* Slate 700 */
+        }
+
+        /* Dynamic background for hero section */
+        #hero {
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(45deg, #6366F1, #8B5CF6, #EC4899);
+            background-size: 400% 400%;
+            animation: gradientAnimation 15s ease infinite;
+        }
+
+        @keyframes gradientAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Dark mode styles - these will apply when the 'dark' class is on the html tag */
+        html.dark body {
+            background-color: #1a202c; /* Dark background */
+            color: #e2e8f0; /* Light text */
+        }
+
+        html.dark .bg-white {
+            background-color: #2d3748; /* Darker background for cards/header */
+        }
+
+        html.dark .text-gray-700 {
+            color: #a0aec0; /* Lighter gray text in dark mode */
+        }
+
+        html.dark .text-gray-800 {
+            color: #e2e8f0; /* Light text for headings in dark mode */
+        }
+
+        html.dark .text-gray-600 {
+            color: #cbd5e0; /* Even lighter gray text in dark mode */
+        }
+
+        html.dark .shadow-lg {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.15);
+        }
+
+        html.dark .bg-gray-50 {
+            background-color: #2d3748;
+        }
+
+        html.dark .bg-gray-100 {
+            background-color: #2d3748;
+        }
+
+        html.dark .bg-indigo-600 {
+            background-color: #4c51bf; /* Slightly adjusted indigo for dark mode */
+        }
+
+        html.dark .bg-purple-700 {
+            background-color: #6b46c1; /* Slightly adjusted purple for dark mode */
+        }
+
+        html.dark .border-indigo-200 {
+            border-color: #4c51bf; /* Adjusted border color for timeline */
+        }
+
+        /* Custom scrollbar for a cleaner look */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #e2e8f0; /* Light blue-gray */
+            border-radius: 10px;
+        }
+        html.dark ::-webkit-scrollbar-track {
+            background: #4a5568; /* Darker track for dark mode */
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #94a3b8; /* Darker blue-gray */
+            border-radius: 10px;
+        }
+        html.dark ::-webkit-scrollbar-thumb {
+            background: #718096; /* Darker thumb for dark mode */
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #64748b; /* Even darker blue-gray */
+        }
+        html.dark ::-webkit-scrollbar-thumb:hover {
+            background: #4a5568; /* Even darker thumb for dark mode */
+        }
+
+        /* Keyframe animations for subtle effects */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .animate-fadeIn { animation: fadeIn 0.8s ease-out forwards; }
+        .animate-slideInLeft { animation: slideInLeft 0.8s ease-out forwards; }
+        .animate-slideInRight { animation: slideInRight 0.8s ease-out forwards; }
+
+        /* Delay animations */
+        .delay-100 { animation-delay: 0.1s; }
+        .delay-200 { animation-delay: 0.2s; }
+        .delay-300 { animation-delay: 0.3s; }
+        .delay-400 { animation-delay: 0.4s; }
+        .delay-500 { animation-delay: 0.5s; }
+        .delay-600 { animation-delay: 0.6s; }
+        .delay-700 { animation-delay: 0.7s; }
+        .delay-800 { animation-delay: 0.8s; }
+        .delay-900 { animation-delay: 0.9s; }
+        .delay-1000 { animation-delay: 1.0s; }
+        .delay-1100 { animation-delay: 1.1s; }
+        .delay-1200 { animation-delay: 1.2s; }
+
+        /* Custom timeline styling */
+        .right-timeline {
+            margin-left: 50%;
+            padding-left: 30px;
+        }
+        .left-timeline {
+            margin-right: 50%;
+            padding-right: 30px;
+            text-align: right;
+        }
+        .left-timeline .order-1 {
+            order: 1;
+        }
+        .left-timeline .order-2 {
+            order: 2;
+        }
+        .left-timeline .bg-white {
+            margin-left: auto;
+        }
+
+        /* Modal styles */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1000; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgba(0,0,0,0.6); /* Black w/ opacity */
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            max-width: 600px;
+            width: 90%;
+            position: relative;
+            animation: fadeIn 0.3s ease-out;
+        }
+        html.dark .modal-content {
+            background-color: #2d3748;
+            color: #e2e8f0;
+        }
+        .close-button {
+            color: #aaa;
+            position: absolute;
+            top: 15px;
+            right: 25px;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        .close-button:hover,
+        .close-button:focus {
+            color: #333;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        html.dark .close-button {
+            color: #cbd5e0;
+        }
+        html.dark .close-button:hover,
+        html.dark .close-button:focus {
+            color: #f8fafc;
+        }
+
+        .loading-spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #6366F1;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        html.dark .loading-spinner {
+            border-color: #4a5568;
+            border-top-color: #4c51bf;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Header & Navigation -->
+    <header class="bg-white shadow-lg p-4 sticky top-0 z-50 rounded-b-xl">
+        <nav class="container mx-auto flex justify-between items-center px-4">
+            <!-- Your Name/Logo -->
+            <a href="#hero" class="text-3xl font-extrabold text-indigo-600 hover:text-indigo-800 transition duration-300 transform hover:scale-105">
+                Gomit Tyagi
+            </a>
+            <!-- Navigation Links -->
+            <div class="hidden md:flex space-x-6">
+                <a href="#about" class="text-gray-700 hover:text-indigo-600 font-medium transition duration-300 px-3 py-2 rounded-md">About</a>
+                <a href="#skills" class="text-gray-700 hover:text-indigo-600 font-medium transition duration-300 px-3 py-2 rounded-md">Skills</a>
+                <a href="#projects" class="text-gray-700 hover:text-indigo-600 font-medium transition duration-300 px-3 py-2 rounded-md">Projects</a>
+                <a href="#experience" class="text-gray-700 hover:text-indigo-600 font-medium transition duration-300 px-3 py-2 rounded-md">Experience</a>
+                <a href="#certifications" class="text-gray-700 hover:text-indigo-600 font-medium transition duration-300 px-3 py-2 rounded-md">Certifications</a>
+                <a href="#contact" class="text-gray-700 hover:text-indigo-600 font-medium transition duration-300 px-3 py-2 rounded-md">Contact</a>
+            </div>
+            <!-- Theme Toggle Button -->
+            <button id="theme-toggle" class="p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600 transition duration-300 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                <svg id="sun-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.325 3.325l-.707.707M6.343 6.343l-.707-.707m12.728 0l-.707-.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                <svg id="moon-icon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+            </button>
+            <!-- Mobile Menu Button (Hamburger) -->
+            <button id="mobile-menu-button" class="md:hidden text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 focus:outline-none ml-4">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+            </button>
+        </nav>
+        <!-- Mobile Menu (Hidden by default) -->
+        <div id="mobile-menu" class="md:hidden hidden bg-white dark:bg-gray-800 py-4 px-4 shadow-inner rounded-b-xl">
+            <a href="#about" class="block text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium py-2 px-3 rounded-md transition duration-300">About</a>
+            <a href="#skills" class="block text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium py-2 px-3 rounded-md transition duration-300">Skills</a>
+            <a href="#projects" class="block text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium py-2 px-3 rounded-md transition duration-300">Projects</a>
+            <a href="#experience" class="block text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium py-2 px-3 rounded-md transition duration-300">Experience</a>
+            <a href="#certifications" class="block text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium py-2 px-3 rounded-md transition duration-300">Certifications</a>
+            <a href="#contact" class="block text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium py-2 px-3 rounded-md transition duration-300">Contact</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="hero" class="relative text-white py-20 md:py-32 min-h-screen flex items-center justify-center overflow-hidden">
+        <!-- Background shapes for creativity -->
+        <div class="absolute top-0 left-0 w-48 h-48 bg-white opacity-5 rounded-full -translate-x-1/2 -translate-y-1/2"></div>
+        <div class="absolute bottom-0 right-0 w-64 h-64 bg-white opacity-5 rounded-full translate-x-1/2 translate-y-1/2"></div>
+
+        <div class="container mx-auto text-center px-4 relative z-10 flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16">
+            <!-- Profile Picture -->
+            <div class="flex-shrink-0 animate-fadeIn delay-300">
+                <!-- Replace with your actual profile picture URL -->
+                <img src="my_img.jpeg" alt="Gomit Tyagi's Profile Picture" class="w-48 h-48 md:w-64 md:h-64 rounded-full object-cover border-4 border-white shadow-xl transform hover:scale-105 transition-transform duration-300">
+            </div>
+            <!-- Text Content -->
+            <div class="text-center md:text-left animate-fadeIn delay-500">
+                <p class="text-lg md:text-xl font-light mb-2">Hello, I'm</p>
+                <h1 class="text-4xl md:text-6xl font-extrabold leading-tight mb-4 drop-shadow-lg">
+                    Gomit Tyagi
+                </h1>
+                <p class="text-xl md:text-2xl font-medium mb-6 opacity-90">
+                    A Passionate Computer Science Student & Aspiring Developer
+                </p>
+                <div class="flex flex-col sm:flex-row justify-center md:justify-start gap-4">
+                    <a href="#projects" class="bg-white text-indigo-700 font-bold py-3 px-8 rounded-full shadow-lg hover:bg-gray-100 transition duration-300 transform hover:scale-105 inline-block">
+                        View My Work
+                    </a>
+                    <a href="#contact" class="border-2 border-white text-white font-bold py-3 px-8 rounded-full shadow-lg hover:bg-white hover:text-indigo-700 transition duration-300 transform hover:scale-105 inline-block">
+                        Get in Touch
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Me Section -->
+    <section id="about" class="py-16 bg-white dark:bg-gray-800">
+        <div class="container mx-auto px-4 animate-fadeIn delay-200">
+            <h2 class="text-4xl font-bold text-center mb-12 text-gray-800 dark:text-gray-100">About Me</h2>
+            <div class="flex flex-col md:flex-row items-center gap-12">
+                <div class="md:w-1/2 animate-slideInLeft delay-400">
+                    <img src="https://placehold.co/600x400/E0E7FF/4F46E5?text=A+Bit+About+Me" alt="About Me Image" class="rounded-xl shadow-xl w-full h-auto object-cover">
+                </div>
+                <div class="md:w-1/2 animate-slideInRight delay-600">
+                    <p class="text-lg leading-relaxed mb-4 text-gray-700 dark:text-gray-300">
+                        Hello! I'm Gomit Tyagi, a Computer Science student at Noida Institute of Engineering & Technology, passionate about Web Technologies, Data Analytics, and Machine Learning. I'm currently pursuing my Bachelor of Technology and have a strong academic record with a current CGPA of 8.
+                    </p>
+                    <p class="text-lg leading-relaxed text-gray-700 dark:text-gray-300">
+                        I thrive on creating innovative solutions and bringing ideas to life through a blend of programming, design, and analytical skills. My journey has equipped me with expertise in Python, Java, React.js, and various data analysis tools. I believe in continuous learning and am always eager to explore new technologies and challenges.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-16 bg-gray-50 dark:bg-gray-900">
+        <div class="container mx-auto px-4 animate-fadeIn delay-200">
+            <h2 class="text-4xl font-bold text-center mb-12 text-gray-800 dark:text-gray-100">My Skills</h2>
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+                <!-- Programming Languages -->
+                <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md flex flex-col items-center text-center transform hover:scale-105 transition duration-300 animate-fadeIn delay-300">
+                    <svg class="w-12 h-12 text-blue-500 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                    <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-100 mb-2">Programming Languages</h3>
+                    <p class="text-gray-600 dark:text-gray-300">Python, Java</p>
+                </div>
+                <!-- Web Technologies -->
+                <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md flex flex-col items-center text-center transform hover:scale-105 transition duration-300 animate-fadeIn delay-400">
+                    <svg class="w-12 h-12 text-green-500 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                    <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-100 mb-2">Web Technologies</h3>
+                    <p class="text-gray-600 dark:text-gray-300">HTML, CSS, JavaScript, React.js</p>
+                </div>
+                <!-- Developer Tools -->
+                <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md flex flex-col items-center text-center transform hover:scale-105 transition duration-300 animate-fadeIn delay-500">
+                    <svg class="w-12 h-12 text-red-500 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                    <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-100 mb-2">Developer Tools</h3>
+                    <p class="text-gray-600 dark:text-gray-300">Git, Google Cloud Platform, Google Colab, VS Code, IntelliJ IDEA, Eclipse, Jupyter Notebook</p>
+                </div>
+                <!-- Libraries & Frameworks -->
+                <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md flex flex-col items-center text-center transform hover:scale-105 transition duration-300 animate-fadeIn delay-600">
+                    <svg class="w-12 h-12 text-purple-500 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path></svg>
+                    <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-100 mb-2">Libraries & Frameworks</h3>
+                    <p class="text-gray-600 dark:text-gray-300">Pandas, NumPy, Matplotlib, Keras, TensorFlow</p>
+                </div>
+                <!-- Data Analytics & Business Intelligence -->
+                <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md flex flex-col items-center text-center transform hover:scale-105 transition duration-300 animate-fadeIn delay-700">
+                    <svg class="w-12 h-12 text-orange-500 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3 3 3 4-4M18 14v4m0 0l-1.4-1.4M18 18l-1.4-1.4M18 18l1.4-1.4M18 18l-1.4 1.4M12 4v16m0 0l-4-4m4 4l4-4"></path></svg>
+                    <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-100 mb-2">Data Analytics & BI</h3>
+                    <p class="text-gray-600 dark:text-gray-300">Power BI, Tableau, Data Analytics, Business Intelligence</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-16 bg-white dark:bg-gray-800">
+        <div class="container mx-auto px-4 animate-fadeIn delay-200">
+            <h2 class="text-4xl font-bold text-center mb-12 text-gray-800 dark:text-gray-100">My Projects</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Project Card 1: AI Powered Pneumonia Detection -->
+                <div class="bg-gray-50 dark:bg-gray-900 rounded-xl shadow-lg overflow-hidden transform hover:scale-105 transition duration-300 animate-fadeIn delay-300">
+                    <img src="pnm_detection.png" alt="AI Powered Pneumonia Detection Project Image" class="w-full h-56 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-2xl font-semibold text-gray-800 dark:text-gray-100 mb-3">AI Powered Pneumonia Detection</h3>
+                        <p class="text-gray-700 dark:text-gray-300 mb-4 project-description">Contributed to front-end and machine learning parts of this web app using Flask and deep learning (EfficientNet, TensorFlow/Keras) for automatic pneumonia detection in chest X-rays. Designed the platform for easy image uploads and instant, AI-based diagnostic results.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-indigo-100 text-indigo-800 text-xs font-medium px-2.5 py-0.5 rounded-full">Flask</span>
+                            <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded-full">TensorFlow</span>
+                            <span class="bg-yellow-100 text-yellow-800 text-xs font-medium px-2.5 py-0.5 rounded-full">Keras</span>
+                            <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded-full">Python</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <a href="https://github.com/gomit32/pneumonia-detector-ai" target="_blank" class="text-indigo-600 hover:text-indigo-800 font-medium flex items-center gap-1">
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017 2 16.205 4.862 19.798 8.816 20.98c.48.09.654-.208.654-.462 0-.227-.008-.823-.013-1.616-2.766.6-3.35-1.336-3.35-1.336-.454-1.153-1.11-1.46-1.11-1.46-.908-.62.069-.608.069-.608 1.004.07 1.532 1.03 1.532 1.03.89 1.53 2.336 1.088 2.903.832.09-.646.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.945 0-1.09.39-1.984 1.028-2.68-.103-.253-.446-1.27.098-2.65 0 0 .84-.27 2.75 1.025A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.025 2.747-1.025.546 1.38.203 2.398.1 2.65.64.696 1.026 1.59 1.026 2.68 0 3.843-2.339 4.688-4.568 4.935.359.309.678.92.678 1.855 0 1.338-.013 2.419-.013 2.747 0 .257.172.556.659.458C19.145 19.794 22 16.205 22 12.017 22 6.484 17.523 2 12 2z" clip-rule="evenodd" /></svg>
+                                GitHub
+                            </a>
+                            <a href="#" target="_blank" class="text-purple-600 hover:text-purple-800 font-medium flex items-center gap-1">
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm-1 17H8V7h3v10zm5 0h-3V7h3v10z"></path></svg>
+                                Live Demo
+                            </a>
+                        </div>
+                        <button class="enhance-description-btn mt-4 w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full transition duration-300 transform hover:scale-105">
+                            ✨ Enhance Description
+                        </button>
+                    </div>
+                </div>
+                <!-- Project Card 2: Stock Portfolio Heatmap Analyser -->
+                <div class="bg-gray-50 dark:bg-gray-900 rounded-xl shadow-lg overflow-hidden transform hover:scale-105 transition duration-300 animate-fadeIn delay-400">
+                    <img src="stockimg.png" alt="Stock Portfolio Heatmap Analyser Project Image" class="w-full h-56 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-2xl font-semibold text-gray-800 dark:text-gray-100 mb-3">Stock Portfolio Heatmap Analyser</h3>
+                        <p class="text-gray-700 dark:text-gray-300 mb-4 project-description">Designed and built a tool using deep learning (CNN, TensorFlow) and financial data visualization to explore stock portfolio correlation patterns. Automated retrieval of stock price data (yfinance) and generated investment recommendations.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded-full">Python</span>
+                            <span class="bg-red-100 text-red-800 text-xs font-medium px-2.5 py-0.5 rounded-full">TensorFlow</span>
+                            <span class="bg-purple-100 text-purple-800 text-xs font-medium px-2.5 py-0.5 rounded-full">yfinance</span>
+                            <span class="bg-orange-100 text-orange-800 text-xs font-medium px-2.5 py-0.5 rounded-full">Matplotlib</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <a href="https://github.com/gomit32/stock_portfolio_heatmap" target="_blank" class="text-indigo-600 hover:text-indigo-800 font-medium flex items-center gap-1">
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017 2 16.205 4.862 19.798 8.816 20.98c.48.09.654-.208.654-.462 0-.227-.008-.823-.013-1.616-2.766.6-3.35-1.336-3.35-1.336-.454-1.153-1.11-1.46-1.11-1.46-.908-.62.069-.608.069-.608 1.004.07 1.532 1.03 1.532 1.03.89 1.53 2.336 1.088 2.903.832.09-.646.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.945 0-1.09.39-1.984 1.028-2.68-.103-.253-.446-1.27.098-2.65 0 0 .84-.27 2.75 1.025A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.025 2.747-1.025.546 1.38.203 2.398.1 2.65.64.696 1.026 1.59 1.026 2.68 0 3.843-2.339 4.688-4.568 4.935.359.309.678.92.678 1.855 0 1.338-.013 2.419-.013 2.747 0 .257.172.556.659.458C19.145 19.794 22 16.205 22 12.017 22 6.484 17.523 2 12 2z" clip-rule="evenodd" /></svg>
+                                GitHub
+                            </a>
+                            <a href="#" target="_blank" class="text-purple-600 hover:text-purple-800 font-medium flex items-center gap-1">
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm-1 17H8V7h3v10zm5 0h-3V7h3v10z"></path></svg>
+                                Live Demo
+                            </a>
+                        </div>
+                        <button class="enhance-description-btn mt-4 w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full transition duration-300 transform hover:scale-105">
+                            ✨ Enhance Description
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Project Card 3: Smart Research Assistant -->
+                <div class="bg-gray-50 dark:bg-gray-900 rounded-xl shadow-lg overflow-hidden transform hover:scale-105 transition duration-300 animate-fadeIn delay-500">
+                    <img src="smartresearch.png" alt="Smart Research Assistant Project Image" class="w-full h-56 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-2xl font-semibold text-gray-800 dark:text-gray-100 mb-3">Smart Research Assistant</h3>
+                        <p class="text-gray-700 dark:text-gray-300 mb-4 project-description">An intelligent assistant designed to streamline research processes, likely involving natural language processing and information retrieval techniques, built with JavaScript.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-yellow-100 text-yellow-800 text-xs font-medium px-2.5 py-0.5 rounded-full">JavaScript</span>
+                            <span class="bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-0.5 rounded-full">NLP</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <a href="https://github.com/gomit32/Smart-Research-Assistant" target="_blank" class="text-indigo-600 hover:text-indigo-800 font-medium flex items-center gap-1">
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017 2 16.205 4.862 19.798 8.816 20.98c.48.09.654-.208.654-.462 0-.227-.008-.823-.013-1.616-2.766.6-3.35-1.336-3.35-1.336-.454-1.153-1.11-1.46-1.11-1.46-.908-.62.069-.608.069-.608 1.004.07 1.532 1.03 1.532 1.03.89 1.53 2.336 1.088 2.903.832.09-.646.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.945 0-1.09.39-1.984 1.028-2.68-.103-.253-.446-1.27.098-2.65 0 0 .84-.27 2.75 1.025A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.025 2.747-1.025.546 1.38.203 2.398.1 2.65.64.696 1.026 1.59 1.026 2.68 0 3.843-2.339 4.688-4.568 4.935.359.309.678.92.678 1.855 0 1.338-.013 2.419-.013 2.747 0 .257.172.556.659.458C19.145 19.794 22 16.205 22 12.017 22 6.484 17.523 2 12 2z" clip-rule="evenodd" /></svg>
+                                GitHub
+                            </a>
+                            <a href="#" target="_blank" class="text-purple-600 hover:text-purple-800 font-medium flex items-center gap-1">
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm-1 17H8V7h3v10zm5 0h-3V7h3v10z"></path></svg>
+                                Live Demo
+                            </a>
+                        </div>
+                        <button class="enhance-description-btn mt-4 w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full transition duration-300 transform hover:scale-105">
+                            ✨ Enhance Description
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Project Card 4: BloodBank Management System -->
+                <div class="bg-gray-50 dark:bg-gray-900 rounded-xl shadow-lg overflow-hidden transform hover:scale-105 transition duration-300 animate-fadeIn delay-600">
+                    <img src="bloodbank_project.png" alt="BloodBank Management System Project Image" class="w-full h-56 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-2xl font-semibold text-gray-800 dark:text-gray-100 mb-3">BloodBank Management System</h3>
+                        <p class="text-gray-700 dark:text-gray-300 mb-4 project-description">A robust web-based application developed using HTML to efficiently manage blood donation and recipient information, streamlining critical operations within blood banks.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-teal-100 text-teal-800 text-xs font-medium px-2.5 py-0.5 rounded-full">HTML</span>
+                            <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded-full">Web Dev</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <a href="https://github.com/gomit32/bloodbank" target="_blank" class="text-indigo-600 hover:text-indigo-800 font-medium flex items-center gap-1">
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017 2 16.205 4.862 19.798 8.816 20.98c.48.09.654-.208.654-.462 0-.227-.008-.823-.013-1.616-2.766.6-3.35-1.336-3.35-1.336-.454-1.153-1.11-1.46-1.11-1.46-.908-.62.069-.608.069-.608 1.004.07 1.532 1.03 1.532 1.03.89 1.53 2.336 1.088 2.903.832.09-.646.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.945 0-1.09.39-1.984 1.028-2.68-.103-.253-.446-1.27.098-2.65 0 0 .84-.27 2.75 1.025A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.025 2.747-1.025.546 1.38.203 2.398.1 2.65.64.696 1.026 1.59 1.026 2.68 0 3.843-2.339 4.688-4.568 4.935.359.309.678.92.678 1.855 0 1.338-.013 2.419-.013 2.747 0 .257.172.556.659.458C19.145 19.794 22 16.205 22 12.017 22 6.484 17.523 2 12 2z" clip-rule="evenodd" /></svg>
+                                GitHub
+                            </a>
+                            <a href="#" target="_blank" class="text-purple-600 hover:text-purple-800 font-medium flex items-center gap-1">
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm-1 17H8V7h3v10zm5 0h-3V7h3v10z"></path></svg>
+                                Live Demo
+                            </a>
+                        </div>
+                        <button class="enhance-description-btn mt-4 w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full transition duration-300 transform hover:scale-105">
+                            ✨ Enhance Description
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Project Card 5: Portfolio Builder -->
+                <div class="bg-gray-50 dark:bg-gray-900 rounded-xl shadow-lg overflow-hidden transform hover:scale-105 transition duration-300 animate-fadeIn delay-700">
+                    <img src="pf.png" alt="Portfolio Builder Project Image" class="w-full h-56 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-2xl font-semibold text-gray-800 dark:text-gray-100 mb-3">Portfolio Builder</h3>
+                        <p class="text-gray-700 dark:text-gray-300 mb-4 project-description">This project is a dynamic web application designed to help users easily create and customize their professional portfolios, showcasing their skills, projects, and experience in an engaging and responsive manner.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="bg-purple-100 text-purple-800 text-xs font-medium px-2.5 py-0.5 rounded-full">Web Development</span>
+                            <span class="bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-0.5 rounded-full">HTML/CSS/JS</span>
+                            <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded-full">Responsive Design</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <a href="https://github.com/gomit32/My_Portfolio_Website" target="_blank" class="text-indigo-600 hover:text-indigo-800 font-medium flex items-center gap-1">
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017 2 16.205 4.862 19.798 8.816 20.98c.48.09.654-.208.654-.462 0-.227-.008-.823-.013-1.616-2.766.6-3.35-1.336-3.35-1.336-.454-1.153-1.11-1.46-1.11-1.46-.908-.62.069-.608.069-.608 1.004.07 1.532 1.03 1.532 1.03.89 1.53 2.336 1.088 2.903.832.09-.646.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.945 0-1.09.39-1.984 1.028-2.68-.103-.253-.446-1.27.098-2.65 0 0 .84-.27 2.75 1.025A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.025 2.747-1.025.546 1.38.203 2.398.1 2.65.64.696 1.026 1.59 1.026 2.68 0 3.843-2.339 4.688-4.568 4.935.359.309.678.92.678 1.855 0 1.338-.013 2.419-.013 2.747 0 .257.172.556.659.458C19.145 19.794 22 16.205 22 12.017 22 6.484 17.523 2 12 2z" clip-rule="evenodd" /></svg>
+                                GitHub
+                            </a>
+                            <a href="#" target="_blank" class="text-purple-600 hover:text-purple-800 font-medium flex items-center gap-1">
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm-1 17H8V7h3v10zm5 0h-3V7h3v10z"></path></svg>
+                                Live Demo
+                            </a>
+                        </div>
+                        <button class="enhance-description-btn mt-4 w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full transition duration-300 transform hover:scale-105">
+                            ✨ Enhance Description
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section (Timeline Style) -->
+    <section id="experience" class="py-16 bg-gray-50 dark:bg-gray-900">
+        <div class="container mx-auto px-4 animate-fadeIn delay-200">
+            <h2 class="text-4xl font-bold text-center mb-12 text-gray-800 dark:text-gray-100">Experience & Achievements</h2>
+            <div class="relative wrap overflow-hidden p-10 h-full">
+                <div class="border-2-2 absolute border-opacity-20 border-indigo-200 dark:border-indigo-400 h-full border" style="left: 50%"></div>
+                <!-- Experience Item 1: Web Development Intern -->
+                <div class="mb-8 flex justify-between items-center w-full right-timeline animate-slideInLeft delay-300">
+                    <div class="order-1 w-5/12"></div>
+                    <div class="z-20 flex items-center order-1 bg-indigo-600 dark:bg-indigo-700 shadow-xl w-8 h-8 rounded-full">
+                        <h1 class="mx-auto font-semibold text-lg text-white">1</h1>
+                    </div>
+                    <div class="order-1 bg-white dark:bg-gray-800 rounded-lg shadow-xl w-5/12 px-6 py-4">
+                        <h3 class="mb-3 font-bold text-gray-800 dark:text-gray-100 text-xl">Web Development Intern</h3>
+                        <p class="text-sm leading-snug tracking-wide text-gray-700 dark:text-gray-300 text-opacity-100">
+                            Bharat Intern | Oct 2024 – Dec 2024
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Experience Item 2: Data Science Intern -->
+                <div class="mb-8 flex justify-between flex-row-reverse items-center w-full left-timeline animate-slideInRight delay-500">
+                    <div class="order-1 w-5/12"></div>
+                    <div class="z-20 flex items-center order-1 bg-indigo-600 dark:bg-indigo-700 shadow-xl w-8 h-8 rounded-full">
+                        <h1 class="mx-auto font-semibold text-lg text-white">2</h1>
+                    </div>
+                    <div class="order-1 bg-white dark:bg-gray-800 rounded-lg shadow-xl w-5/12 px-6 py-4">
+                        <h3 class="mb-3 font-bold text-gray-800 dark:text-gray-100 text-xl">Data Science Intern</h3>
+                        <p class="text-sm leading-snug tracking-wide text-gray-700 dark:text-gray-300 text-opacity-100">
+                            Codsoft | July 2024 – Aug 2024
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Achievement Item 3: Hack Fest Geeks for Geeks -->
+                <div class="mb-8 flex justify-between items-center w-full right-timeline animate-slideInLeft delay-700">
+                    <div class="order-1 w-5/12"></div>
+                    <div class="z-20 flex items-center order-1 bg-indigo-600 dark:bg-indigo-700 shadow-xl w-8 h-8 rounded-full">
+                        <h1 class="mx-auto font-semibold text-lg text-white">3</h1>
+                    </div>
+                    <div class="order-1 bg-white dark:bg-gray-800 rounded-lg shadow-xl w-5/12 px-6 py-4">
+                        <h3 class="mb-3 font-bold text-gray-800 dark:text-gray-100 text-xl">Hack Fest Geeks for Geeks</h3>
+                        <p class="text-sm leading-snug tracking-wide text-gray-700 dark:text-gray-300 text-opacity-100">
+                            Participation in a major hackathon.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Achievement Item 4: Vultur Cloud Rank -->
+                <div class="mb-8 flex justify-between flex-row-reverse items-center w-full left-timeline animate-slideInRight delay-900">
+                    <div class="order-1 w-5/12"></div>
+                    <div class="z-20 flex items-center order-1 bg-indigo-600 dark:bg-indigo-700 shadow-xl w-8 h-8 rounded-full">
+                        <h1 class="mx-auto font-semibold text-lg text-white">4</h1>
+                    </div>
+                    <div class="order-1 bg-white dark:bg-gray-800 rounded-lg shadow-xl w-5/12 px-6 py-4">
+                        <h3 class="mb-3 font-bold text-gray-800 dark:text-gray-100 text-xl">Vultur Cloud Global Rank</h3>
+                        <p class="text-sm leading-snug tracking-wide text-gray-700 dark:text-gray-300 text-opacity-100">
+                            Achieved Global Rank Under 50 out of 100,000+ participants.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Achievement Item 5: AI-integrated drone development -->
+                <div class="mb-8 flex justify-between items-center w-full right-timeline animate-slideInLeft delay-1100">
+                    <div class="order-1 w-5/12"></div>
+                    <div class="z-20 flex items-center order-1 bg-indigo-600 dark:bg-indigo-700 shadow-xl w-8 h-8 rounded-full">
+                        <h1 class="mx-auto font-semibold text-lg text-white">5</h1>
+                    </div>
+                    <div class="order-1 bg-white dark:bg-gray-800 rounded-lg shadow-xl w-5/12 px-6 py-4">
+                        <h3 class="mb-3 font-bold text-gray-800 dark:text-gray-100 text-xl">AI-integrated Drone Project</h3>
+                        <p class="text-sm leading-snug tracking-wide text-gray-700 dark:text-gray-300 text-opacity-100">
+                            Achieved 2nd place in an AI-integrated drone development project.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certifications Section -->
+    <section id="certifications" class="py-16 bg-white dark:bg-gray-800">
+        <div class="container mx-auto px-4 animate-fadeIn delay-200">
+            <h2 class="text-4xl font-bold text-center mb-12 text-gray-800 dark:text-gray-100">Certifications</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Certification Card 1: ReactJS | Infosys Springboard -->
+                <div class="bg-gray-50 dark:bg-gray-900 p-6 rounded-xl shadow-md flex items-center gap-4 transform hover:scale-105 transition duration-300 animate-fadeIn delay-300">
+                    <div class="flex-shrink-0 text-indigo-500">
+                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.001 12.001 0 002.92 12c0 3.072 1.09 5.852 3.04 7.168A12.001 12.001 0 0012 21.056c3.072 0 5.852-1.09 7.168-3.04A12.001 12.001 0 0021.08 12c0-3.072-1.09-5.852-3.04-7.168z"></path></svg>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-100">ReactJS</h3>
+                        <p class="text-gray-600 dark:text-gray-300">Infosys Springboard</p>
+                    </div>
+                </div>
+                <!-- Certification Card 2: Data Analysis | Infosys Springboard -->
+                <div class="bg-gray-50 dark:bg-gray-900 p-6 rounded-xl shadow-md flex items-center gap-4 transform hover:scale-105 transition duration-300 animate-fadeIn delay-400">
+                    <div class="flex-shrink-0 text-green-500">
+                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.001 12.001 0 002.92 12c0 3.072 1.09 5.852 3.04 7.168A12.001 12.001 0 0012 21.056c3.072 0 5.852-1.09 7.168-3.04A12.001 12.001 0 0021.08 12c0-3.072-1.09-5.852-3.04-7.168z"></path></svg>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-100">Data Analysis</h3>
+                        <p class="text-gray-600 dark:text-gray-300">Infosys Springboard</p>
+                    </div>
+                </div>
+                <!-- Certification Card 3: Deep learning for developers | Infosys -->
+                <div class="bg-gray-50 dark:bg-gray-900 p-6 rounded-xl shadow-md flex items-center gap-4 transform hover:scale-105 transition duration-300 animate-fadeIn delay-500">
+                    <div class="flex-shrink-0 text-purple-500">
+                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.001 12.001 0 002.92 12c0 3.072 1.09 5.852 3.04 7.168A12.001 12.001 0 0012 21.056c3.072 0 5.852-1.09 7.168-3.04A12.001 12.001 0 0021.08 12c0-3.072-1.09-5.852-3.04-7.168z"></path></svg>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-100">Deep learning for developers</h3>
+                        <p class="text-gray-600 dark:text-gray-300">Infosys</p>
+                    </div>
+                </div>
+                <!-- Certification Card 4: JavaScript | Infosys Springboard -->
+                <div class="bg-gray-50 dark:bg-gray-900 p-6 rounded-xl shadow-md flex items-center gap-4 transform hover:scale-105 transition duration-300 animate-fadeIn delay-600">
+                    <div class="flex-shrink-0 text-yellow-500">
+                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.001 12.001 0 002.92 12c0 3.072 1.09 5.852 3.04 7.168A12.001 12.001 0 0012 21.056c3.072 0 5.852-1.09 7.168-3.04A12.001 12.001 0 0021.08 12c0-3.072-1.09-5.852-3.04-7.168z"></path></svg>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-100">JavaScript</h3>
+                        <p class="text-gray-600 dark:text-gray-300">Infosys Springboard</p>
+                    </div>
+                </div>
+                <!-- Certification Card 5: Data Visualization with Python | IBM -->
+                <div class="bg-gray-50 dark:bg-gray-900 p-6 rounded-xl shadow-md flex items-center gap-4 transform hover:scale-105 transition duration-300 animate-fadeIn delay-700">
+                    <div class="flex-shrink-0 text-teal-500">
+                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.001 12.001 0 002.92 12c0 3.072 1.09 5.852 3.04 7.168A12.001 12.001 0 0012 21.056c3.072 0 5.852-1.09 7.168-3.04A12.001 12.001 0 0021.08 12c0-3.072-1.09-5.852-3.04-7.168z"></path></svg>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-100">Data Visualization with Python</h3>
+                        <p class="text-gray-600 dark:text-gray-300">IBM</p>
+                    </div>
+                </div>
+                <!-- Certification Card 6: AWS Solution Architect | AWS -->
+                <div class="bg-gray-50 dark:bg-gray-900 p-6 rounded-xl shadow-md flex items-center gap-4 transform hover:scale-105 transition duration-300 animate-fadeIn delay-800">
+                    <div class="flex-shrink-0 text-orange-500">
+                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.001 12.001 0 002.92 12c0 3.072 1.09 5.852 3.04 7.168A12.001 12.001 0 0012 21.056c3.072 0 5.852-1.09 7.168-3.04A12.001 12.001 0 0021.08 12c0-3.072-1.09-5.852-3.04-7.168z"></path></svg>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-100">AWS Solution Architect</h3>
+                        <p class="text-gray-600 dark:text-gray-300">AWS</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action Section -->
+    <section class="bg-indigo-700 text-white py-16">
+        <div class="container mx-auto text-center px-4 animate-fadeIn delay-200">
+            <h2 class="text-3xl md:text-4xl font-bold mb-6">Let's Build Something Amazing Together!</h2>
+            <p class="text-lg md:text-xl mb-8 opacity-90">
+                I'm always open to new opportunities and collaborations.
+            </p>
+            <a href="#contact" class="bg-white text-indigo-700 font-bold py-3 px-8 rounded-full shadow-lg hover:bg-gray-100 transition duration-300 transform hover:scale-105 inline-block">
+                Connect With Me
+            </a>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-16 bg-gray-100 dark:bg-gray-900">
+        <div class="container mx-auto px-4 animate-fadeIn delay-200">
+            <h2 class="text-4xl font-bold text-center mb-12 text-gray-800 dark:text-gray-100">Get in Touch</h2>
+            <div class="flex flex-col md:flex-row gap-12 items-start justify-center">
+                <!-- Contact Form (Placeholder) -->
+                <div class="md:w-1/2 bg-white dark:bg-gray-800 p-8 rounded-xl shadow-lg animate-slideInLeft delay-300">
+                    <h3 class="text-2xl font-semibold text-gray-800 dark:text-gray-100 mb-6">Send Me a Message</h3>
+                    <form action="https://formspree.io/f/youruniqueid" method="POST">
+                        <div class="mb-4">
+                            <label for="name" class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">Name</label>
+                            <input type="text" id="name" name="name" class="shadow appearance-none border rounded-lg w-full py-3 px-4 text-gray-700 dark:text-gray-200 dark:bg-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition duration-200" placeholder="Your Name">
+                        </div>
+                        <div class="mb-4">
+                            <label for="email" class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">Email</label>
+                            <input type="email" id="email" name="email" class="shadow appearance-none border rounded-lg w-full py-3 px-4 text-gray-700 dark:text-gray-200 dark:bg-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition duration-200" placeholder="your.email@example.com">
+                        </div>
+                        <div class="mb-6">
+                            <label for="message" class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">Message</label>
+                            <textarea id="message" name="message" rows="5" class="shadow appearance-none border rounded-lg w-full py-3 px-4 text-gray-700 dark:text-gray-200 dark:bg-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition duration-200" placeholder="Your message..."></textarea>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <button type="submit" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-6 rounded-full focus:outline-none focus:shadow-outline transition duration-300 transform hover:scale-105">
+                                Send Message
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Social Media & Direct Contact -->
+                <div class="md:w-1/2 bg-white dark:bg-gray-800 p-8 rounded-xl shadow-lg animate-slideInRight delay-500">
+                    <h3 class="text-2xl font-semibold text-gray-800 dark:text-gray-100 mb-6">Find Me Online</h3>
+                    <div class="space-y-6">
+                        <!-- LinkedIn -->
+                        <a href="https://www.linkedin.com/in/gomit-tyagi-b4a70228/" target="_blank" class="flex items-center gap-4 text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition duration-300 group">
+                            <div class="p-3 bg-blue-100 dark:bg-blue-900 rounded-full group-hover:bg-blue-200 dark:group-hover:bg-blue-800 transition duration-300">
+                                <svg class="w-7 h-7 text-blue-600 dark:text-blue-400" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                            </div>
+                            <span class="text-lg font-medium">Gomit Tyagi (LinkedIn)</span>
+                        </a>
+                        <!-- GitHub -->
+                        <a href="https://github.com/gomit32" target="_blank" class="flex items-center gap-4 text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition duration-300 group">
+                            <div class="p-3 bg-gray-100 dark:bg-gray-700 rounded-full group-hover:bg-gray-200 dark:group-hover:bg-gray-600 transition duration-300">
+                                <svg class="w-7 h-7 text-gray-800 dark:text-gray-200" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017 2 16.205 4.862 19.798 8.816 20.98c.48.09.654-.208.654-.462 0-.227-.008-.823-.013-1.616-2.766.6-3.35-1.336-3.35-1.336-.454-1.153-1.11-1.46-1.11-1.46-.908-.62.069-.608.069-.608 1.004.07 1.532 1.03 1.532 1.03.89 1.53 2.336 1.088 2.903.832.09-.646.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.945 0-1.09.39-1.984 1.028-2.68-.103-.253-.446-1.27.098-2.65 0 0 .84-.27 2.75 1.025A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.025 2.747-1.025.546 1.38.203 2.398.1 2.65.64.696 1.026 1.59 1.026 2.68 0 3.843-2.339 4.688-4.568 4.935.359.309.678.92.678 1.855 0 1.338-.013 2.419-.013 2.747 0 .257.172.556.659.458C19.145 19.794 22 16.205 22 12.017 22 6.484 17.523 2 12 2z" clip-rule="evenodd" /></svg>
+                            </div>
+                            <span class="text-lg font-medium">gomit32 (GitHub)</span>
+                        </a>
+                        <!-- Email -->
+                        <a href="mailto:gomit32@gmail.com" class="flex items-center gap-4 text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition duration-300 group">
+                            <div class="p-3 bg-red-100 dark:bg-red-900 rounded-full group-hover:bg-red-200 dark:group-hover:bg-red-800 transition duration-300">
+                                <svg class="w-7 h-7 text-red-600 dark:text-red-400" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6zm-2 0l-8 5-8-5h16zm0 12H4V8l8 5 8-5v10z"/></svg>
+                            </div>
+                            <span class="text-lg font-medium">gomit32@gmail.com</span>
+                        </a>
+                        <!-- Instagram (Placeholder - add your handle if you want to include it) -->
+                        <a href="https://www.instagram.com/gomittyagi?igsh=bTA2dmx5NXN0eWxl" target="_blank" class="flex items-center gap-4 text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition duration-300 group">
+                            <div class="p-3 bg-pink-100 dark:bg-pink-900 rounded-full group-hover:bg-pink-200 dark:group-hover:bg-pink-800 transition duration-300">
+                                <svg class="w-7 h-7 text-pink-600 dark:text-pink-400" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4c0 3.2-2.6 5.8-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8C2 4.6 4.6 2 7.8 2zm-.2 2A4.8 4.8 0 004 7.8v8.4c0 2.6 2.2 4.8 4.8 4.8h8.4c2.6 0 4.8-2.2 4.8-4.8V7.8A4.8 4.8 0 0016.2 4H7.6zm9.65 1.5a1.25 1.25 0 11-2.5 0 1.25 1.25 0 012.5 0zM12 7a5 5 0 100 10 5 5 0 000-10zm0 2a3 3 0 110 6 3 3 0 010-6z"/></svg>
+                            </div>
+                            <span class="text-lg font-medium">My Instagram</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8 rounded-t-xl">
+        <div class="container mx-auto text-center px-4">
+            <p class="mb-4">&copy; 2025 Gomit Tyagi. All rights reserved.</p>
+            <div class="flex justify-center space-x-6">
+                <a href="#hero" class="text-gray-400 hover:text-white transition duration-300">Back to Top</a>
+                <a href="mailto:gomit32@gmail.com" class="text-gray-400 hover:text-white transition duration-300">Email Me</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal for LLM output -->
+    <div id="llmModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h3 class="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-4">Enhanced Description ✨</h3>
+            <div id="llmOutput" class="text-gray-700 dark:text-gray-300 leading-relaxed"></div>
+            <div id="llmLoading" class="loading-spinner hidden"></div>
+        </div>
+    </div>
+
+    <!-- JavaScript for Mobile Menu, Smooth Scrolling, and Theme Toggle -->
+    <script>
+        // Theme Toggle Functionality
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const sunIcon = document.getElementById('sun-icon');
+        const moonIcon = document.getElementById('moon-icon');
+        const htmlElement = document.documentElement; // This is the <html> tag
+
+        // On page load, check local storage for theme preference
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            htmlElement.classList.add('dark');
+            sunIcon.classList.add('hidden');
+            moonIcon.classList.remove('hidden');
+        } else {
+            htmlElement.classList.remove('dark');
+            sunIcon.classList.remove('hidden');
+            moonIcon.classList.add('hidden');
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            if (htmlElement.classList.contains('dark')) {
+                htmlElement.classList.remove('dark');
+                localStorage.theme = 'light';
+                sunIcon.classList.remove('hidden');
+                moonIcon.classList.add('hidden');
+            } else {
+                htmlElement.classList.add('dark');
+                localStorage.theme = 'dark';
+                sunIcon.classList.add('hidden');
+                moonIcon.classList.remove('hidden');
+            }
+        });
+
+        // Mobile Menu Toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Smooth Scrolling for all internal links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                // Only proceed if the href is an internal anchor and not just '#'
+                if (href && href.length > 1 && href.startsWith('#')) {
+                    e.preventDefault();
+
+                    // Close mobile menu if open
+                    if (!mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                    }
+
+                    document.querySelector(href).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+            
+        });
+
+        // Gemini API Integration for Project Description Enhancement
+        const enhanceButtons = document.querySelectorAll('.enhance-description-btn');
+        const llmModal = document.getElementById('llmModal');
+        const llmOutput = document.getElementById('llmOutput');
+        const llmLoading = document.getElementById('llmLoading');
+        const closeModalButton = document.querySelector('.close-button');
+
+        enhanceButtons.forEach(button => {
+            button.addEventListener('click', async (event) => {
+                const projectDescriptionElement = event.target.closest('.p-6').querySelector('.project-description');
+                const currentDescription = projectDescriptionElement ? projectDescriptionElement.textContent.trim() : '';
+
+                llmOutput.textContent = ''; // Clear previous content
+                llmLoading.classList.remove('hidden'); // Show loading spinner
+                llmModal.style.display = 'flex'; // Show modal
+
+                try {
+                    let chatHistory = [];
+                    const prompt = `Expand and make more creative the following project description for a professional portfolio website: '${currentDescription}'. Focus on impact, technologies used, and problem-solving. Keep it concise, around 50-70 words.`;
+                    chatHistory.push({ role: "user", parts: [{ text: prompt }] });
+
+                    const payload = { contents: chatHistory };
+                    const apiKey = ""; // Canvas will automatically provide the API key
+                    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    const result = await response.json();
+
+                    if (result.candidates && result.candidates.length > 0 &&
+                        result.candidates[0].content && result.candidates[0].content.parts &&
+                        result.candidates[0].content.parts.length > 0) {
+                        const text = result.candidates[0].content.parts[0].text;
+                        llmOutput.textContent = text;
+                    } else {
+                        llmOutput.textContent = 'Failed to generate description. Please try again.';
+                    }
+                } catch (error) {
+                    console.error('Error calling Gemini API:', error);
+                    llmOutput.textContent = 'An error occurred while enhancing the description.';
+                } finally {
+                    llmLoading.classList.add('hidden'); // Hide loading spinner
+                }
+            });
+        });
+
+        // Close modal when close button is clicked
+        closeModalButton.addEventListener('click', () => {
+            llmModal.style.display = 'none';
+        });
+
+        // Close modal when clicking outside of the modal content
+        window.addEventListener('click', (event) => {
+            if (event.target == llmModal) {
+                llmModal.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
