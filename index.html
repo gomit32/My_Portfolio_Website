@@ -33,48 +33,48 @@
 
         /* Dark mode styles - these will apply when the 'dark' class is on the html tag */
         html.dark body {
-            background-color: #1a202c; /* Dark background */
-            color: #e2e8f0; /* Light text */
+            background-color: #121212; /* Very dark background */
+            color: #e0e0e0; /* Light gray text */
         }
 
         html.dark .bg-white {
-            background-color: #2d3748; /* Darker background for cards/header */
+            background-color: #1e1e1e; /* Darker background for cards/header */
         }
 
         html.dark .text-gray-700 {
-            color: #a0aec0; /* Lighter gray text in dark mode */
+            color: #b0b0b0; /* Lighter gray text in dark mode */
         }
 
         html.dark .text-gray-800 {
-            color: #e2e8f0; /* Light text for headings in dark mode */
+            color: #ffffff; /* White text for headings in dark mode */
         }
 
         html.dark .text-gray-600 {
-            color: #cbd5e0; /* Even lighter gray text in dark mode */
+            color: #c0c0c0; /* Even lighter gray text in dark mode */
         }
 
         html.dark .shadow-lg {
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -2px rgba(0, 0, 0, 0.25);
         }
 
         html.dark .bg-gray-50 {
-            background-color: #2d3748;
+            background-color: #2a2a2a; /* Darker background for sections */
         }
 
         html.dark .bg-gray-100 {
-            background-color: #2d3748;
+            background-color: #2a2a2a; /* Darker background for sections */
         }
 
         html.dark .bg-indigo-600 {
-            background-color: #4c51bf; /* Slightly adjusted indigo for dark mode */
+            background-color: #5a67d8; /* Adjusted indigo for dark mode */
         }
 
         html.dark .bg-purple-700 {
-            background-color: #6b46c1; /* Slightly adjusted purple for dark mode */
+            background-color: #7b68ee; /* Adjusted purple for dark mode */
         }
 
         html.dark .border-indigo-200 {
-            border-color: #4c51bf; /* Adjusted border color for timeline */
+            border-color: #5a67d8; /* Adjusted border color for timeline */
         }
 
         /* Custom scrollbar for a cleaner look */
@@ -133,11 +133,18 @@
         .delay-1000 { animation-delay: 1.0s; }
         .delay-1100 { animation-delay: 1.1s; }
         .delay-1200 { animation-delay: 1.2s; }
+        .delay-1300 { animation-delay: 1.3s; }
+        .delay-1400 { animation-delay: 1.4s; }
+        .delay-1500 { animation-delay: 1.5s; }
+        .delay-1600 { animation-delay: 1.6s; }
+        .delay-1700 { animation-delay: 1.7s; }
+        .delay-1800 { animation-delay: 1.8s; }
 
         /* Custom timeline styling */
         .right-timeline {
             margin-left: 50%;
             padding-left: 30px;
+            text-align: left; /* Ensure text aligns left in right column */
         }
         .left-timeline {
             margin-right: 50%;
@@ -153,6 +160,34 @@
         .left-timeline .bg-white {
             margin-left: auto;
         }
+
+        /* Responsive adjustments for timeline */
+        @media (max-width: 768px) {
+            .right-timeline, .left-timeline {
+                margin-left: 0;
+                margin-right: 0;
+                padding-left: 20px;
+                padding-right: 20px;
+                text-align: left;
+            }
+            .left-timeline .order-1 {
+                order: 0; /* Reset order for single column */
+            }
+            .left-timeline .order-2 {
+                order: 0; /* Reset order for single column */
+            }
+            .left-timeline .bg-white {
+                margin-left: 0;
+            }
+            .relative.wrap .border {
+                left: 20px !important; /* Adjust vertical line position for mobile */
+            }
+            .z-20 {
+                left: 12px !important; /* Adjust circle position for mobile */
+                transform: translateX(-50%);
+            }
+        }
+
 
         /* Modal styles */
         .modal {
@@ -225,25 +260,111 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
+
+        /* About Me Image Carousel Styles */
+        .carousel-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 66.66%; /* 3:2 Aspect Ratio (400/600) */
+            overflow: hidden;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        }
+        .carousel-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+        .carousel-image.active {
+            opacity: 1;
+        }
+
+        /* Name Motion Effect (Header) */
+        .name-effect {
+            display: inline-block;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            /* Initial state for animation */
+            opacity: 0;
+            transform: translateY(-20px);
+            animation: nameEntry 1s forwards cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        /* Keyframes for name entry animation */
+        @keyframes nameEntry {
+            0% { opacity: 0; transform: translateY(-20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Letter-by-letter animation with scatter and gather */
+        .name-effect span {
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(20px) scale(0.5); /* Start small and low */
+            transition: transform 0.3s ease, opacity 0.3s ease; /* Smooth transition for hover */
+            animation: letterScatterGather 1.5s forwards cubic-bezier(0.68, -0.55, 0.265, 1.55); /* More dynamic animation */
+        }
+
+        /* Staggered delay for each letter */
+        .name-effect span:nth-child(1) { animation-delay: 0.1s; }
+        .name-effect span:nth-child(2) { animation-delay: 0.15s; }
+        .name-effect span:nth-child(3) { animation-delay: 0.2s; }
+        .name-effect span:nth-child(4) { animation-delay: 0.25s; }
+        .name-effect span:nth-child(5) { animation-delay: 0.3s; }
+        .name-effect span:nth-child(6) { animation-delay: 0.35s; }
+        .name-effect span:nth-child(7) { animation-delay: 0.4s; }
+        .name-effect span:nth-child(8) { animation-delay: 0.45s; }
+        .name-effect span:nth-child(9) { animation-delay: 0.5s; }
+        .name-effect span:nth-child(10) { animation-delay: 0.55s; } /* For 'Gomit Tyagi' */
+        .name-effect span:nth-child(11) { animation-delay: 0.6s; }
+        .name-effect span:nth-child(12) { animation-delay: 0.65s; }
+
+        @keyframes letterScatterGather {
+            0% { opacity: 0; transform: translateY(-50px) rotate(30deg) scale(0.2); }
+            50% { opacity: 1; transform: translateY(0) rotate(0deg) scale(1.1); } /* Overshoot slightly */
+            100% { opacity: 1; transform: translateY(0) rotate(0deg) scale(1); }
+        }
+
+        /* Hover effect for name */
+        .name-effect:hover span {
+            transform: translateY(-5px) scale(1.05); /* Lift and slightly enlarge on hover */
+            color: #4F46E5; /* Darker indigo on hover */
+            text-shadow: 0 0 8px rgba(79, 70, 229, 0.6); /* Subtle glow */
+        }
+        html.dark .name-effect:hover span {
+            color: #818CF8; /* Lighter indigo on hover in dark mode */
+            text-shadow: 0 0 8px rgba(129, 140, 248, 0.6);
+        }
     </style>
 </head>
 <body class="antialiased">
 
     <!-- Header & Navigation -->
-    <header class="bg-white shadow-lg p-4 sticky top-0 z-50 rounded-b-xl">
+    <header class="bg-white shadow-lg p-4 sticky top-0 z-50 rounded-b-xl dark:bg-gray-800">
         <nav class="container mx-auto flex justify-between items-center px-4">
-            <!-- Your Name/Logo -->
-            <a href="#hero" class="text-3xl font-extrabold text-indigo-600 hover:text-indigo-800 transition duration-300 transform hover:scale-105">
+            <!-- Your Name/Logo with Motion Effect -->
+            <a href="#hero" class="text-3xl font-extrabold text-indigo-600 hover:text-indigo-800 transition duration-300 transform hover:scale-105 name-effect" id="animated-name">
+                <!-- JavaScript will split this into spans -->
                 Gomit Tyagi
             </a>
             <!-- Navigation Links -->
-            <div class="hidden md:flex space-x-6">
-                <a href="#about" class="text-gray-700 hover:text-indigo-600 font-medium transition duration-300 px-3 py-2 rounded-md">About</a>
-                <a href="#skills" class="text-gray-700 hover:text-indigo-600 font-medium transition duration-300 px-3 py-2 rounded-md">Skills</a>
-                <a href="#projects" class="text-gray-700 hover:text-indigo-600 font-medium transition duration-300 px-3 py-2 rounded-md">Projects</a>
-                <a href="#experience" class="text-gray-700 hover:text-indigo-600 font-medium transition duration-300 px-3 py-2 rounded-md">Experience</a>
-                <a href="#certifications" class="text-gray-700 hover:text-indigo-600 font-medium transition duration-300 px-3 py-2 rounded-md">Certifications</a>
-                <a href="#contact" class="text-gray-700 hover:text-indigo-600 font-medium transition duration-300 px-3 py-2 rounded-md">Contact</a>
+            <div class="hidden md:flex space-x-6 items-center">
+                <a href="#about" class="text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium transition duration-300 px-3 py-2 rounded-md">About</a>
+                <a href="#skills" class="text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium transition duration-300 px-3 py-2 rounded-md">Skills</a>
+                <a href="#projects" class="text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium transition duration-300 px-3 py-2 rounded-md">Projects</a>
+                <a href="#experience" class="text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium transition duration-300 px-3 py-2 rounded-md">Experience</a>
+                <a href="#certifications" class="text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium transition duration-300 px-3 py-2 rounded-md">Certifications</a>
+                <a href="#contact" class="text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium transition duration-300 px-3 py-2 rounded-md">Contact</a>
+                <!-- My Resume Button -->
+                <a href="https://1drv.ms/b/c/bd1142fb25fb8c57/EeJi6dyQBuxLkjZ636zg6AwBEhgvHQ0EPzIWH6lVtva6PA?e=QrrS2y" target="_blank" class="ml-4 bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-5 rounded-full shadow-md transition duration-300 transform hover:scale-105">
+                    My Resume
+                </a>
             </div>
             <!-- Theme Toggle Button -->
             <button id="theme-toggle" class="p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600 transition duration-300 focus:outline-none focus:ring-2 focus:ring-indigo-500">
@@ -263,6 +384,10 @@
             <a href="#experience" class="block text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium py-2 px-3 rounded-md transition duration-300">Experience</a>
             <a href="#certifications" class="block text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium py-2 px-3 rounded-md transition duration-300">Certifications</a>
             <a href="#contact" class="block text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400 font-medium py-2 px-3 rounded-md transition duration-300">Contact</a>
+            <!-- My Resume Button for Mobile -->
+            <a href="YOUR_ONEDRIVE_RESUME_LINK" target="_blank" class="block text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300 font-bold py-2 px-3 rounded-md transition duration-300 mt-2">
+                My Resume
+            </a>
         </div>
     </header>
 
@@ -275,7 +400,6 @@
         <div class="container mx-auto text-center px-4 relative z-10 flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16">
             <!-- Profile Picture -->
             <div class="flex-shrink-0 animate-fadeIn delay-300">
-                <!-- Replace with your actual profile picture URL -->
                 <img src="my_img.jpeg" alt="Gomit Tyagi's Profile Picture" class="w-48 h-48 md:w-64 md:h-64 rounded-full object-cover border-4 border-white shadow-xl transform hover:scale-105 transition-transform duration-300">
             </div>
             <!-- Text Content -->
@@ -305,14 +429,21 @@
             <h2 class="text-4xl font-bold text-center mb-12 text-gray-800 dark:text-gray-100">About Me</h2>
             <div class="flex flex-col md:flex-row items-center gap-12">
                 <div class="md:w-1/2 animate-slideInLeft delay-400">
-                    <img src="https://placehold.co/600x400/E0E7FF/4F46E5?text=A+Bit+About+Me" alt="About Me Image" class="rounded-xl shadow-xl w-full h-auto object-cover">
+                    <!-- Image Carousel for About Me Section -->
+                    <div class="carousel-container">
+                        <img src="img_3.jpg" alt="About Me Image 1" class="carousel-image active">
+                        <img src="IMGD.jpeg" alt="About Me Image 2" class="carousel-image">
+                        <img src="img_3.jpg" alt="About Me Image 3" class="carousel-image">
+                        <img src="display_1.jpg" alt="About Me Image 4" class="carousel-image">
+                        <img src="display_2.jpg" alt="About Me Image 5" class="carousel-image">
+                    </div>
                 </div>
                 <div class="md:w-1/2 animate-slideInRight delay-600">
                     <p class="text-lg leading-relaxed mb-4 text-gray-700 dark:text-gray-300">
-                        Hello! I'm Gomit Tyagi, a Computer Science student at Noida Institute of Engineering & Technology, passionate about Web Technologies, Data Analytics, and Machine Learning. I'm currently pursuing my Bachelor of Technology and have a strong academic record with a current CGPA of 8.
+                        Hello! I'm Gomit Tyagi, a final year Bachelor of Technology . I'm deeply passionate about Web Technologies, Data Analytics, and Machine Learning, always eager to tackle new challenges and transform ideas into tangible solutions. 
                     </p>
                     <p class="text-lg leading-relaxed text-gray-700 dark:text-gray-300">
-                        I thrive on creating innovative solutions and bringing ideas to life through a blend of programming, design, and analytical skills. My journey has equipped me with expertise in Python, Java, React.js, and various data analysis tools. I believe in continuous learning and am always eager to explore new technologies and challenges.
+                        I thrive on creating innovative solutions and bringing ideas to life through a blend of programming, design, and analytical skills. My journey has equipped me with expertise in Python, Java, Machine Learning and various data analysis tools. I believe in continuous learning and am always eager to explore new technologies and challenges.
                     </p>
                 </div>
             </div>
@@ -368,25 +499,19 @@
                     <img src="pnm_detection.png" alt="AI Powered Pneumonia Detection Project Image" class="w-full h-56 object-cover">
                     <div class="p-6">
                         <h3 class="text-2xl font-semibold text-gray-800 dark:text-gray-100 mb-3">AI Powered Pneumonia Detection</h3>
-                        <p class="text-gray-700 dark:text-gray-300 mb-4 project-description">Contributed to front-end and machine learning parts of this web app using Flask and deep learning (EfficientNet, TensorFlow/Keras) for automatic pneumonia detection in chest X-rays. Designed the platform for easy image uploads and instant, AI-based diagnostic results.</p>
+                        <p class="text-gray-700 dark:text-gray-300 mb-4 project-short-description">hehehe</p>
                         <div class="flex flex-wrap gap-2 mb-4">
                             <span class="bg-indigo-100 text-indigo-800 text-xs font-medium px-2.5 py-0.5 rounded-full">Flask</span>
                             <span class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded-full">TensorFlow</span>
                             <span class="bg-yellow-100 text-yellow-800 text-xs font-medium px-2.5 py-0.5 rounded-full">Keras</span>
                             <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded-full">Python</span>
                         </div>
-                        <div class="flex justify-between items-center">
-                            <a href="https://github.com/gomit32/pneumonia-detector-ai" target="_blank" class="text-indigo-600 hover:text-indigo-800 font-medium flex items-center gap-1">
-                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017 2 16.205 4.862 19.798 8.816 20.98c.48.09.654-.208.654-.462 0-.227-.008-.823-.013-1.616-2.766.6-3.35-1.336-3.35-1.336-.454-1.153-1.11-1.46-1.11-1.46-.908-.62.069-.608.069-.608 1.004.07 1.532 1.03 1.532 1.03.89 1.53 2.336 1.088 2.903.832.09-.646.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.945 0-1.09.39-1.984 1.028-2.68-.103-.253-.446-1.27.098-2.65 0 0 .84-.27 2.75 1.025A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.025 2.747-1.025.546 1.38.203 2.398.1 2.65.64.696 1.026 1.59 1.026 2.68 0 3.843-2.339 4.688-4.568 4.935.359.309.678.92.678 1.855 0 1.338-.013 2.419-.013 2.747 0 .257.172.556.659.458C19.145 19.794 22 16.205 22 12.017 22 6.484 17.523 2 12 2z" clip-rule="evenodd" /></svg>
-                                GitHub
-                            </a>
-                            <a href="#" target="_blank" class="text-purple-600 hover:text-purple-800 font-medium flex items-center gap-1">
-                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm-1 17H8V7h3v10zm5 0h-3V7h3v10z"></path></svg>
-                                Live Demo
-                            </a>
-                        </div>
-                        <button class="enhance-description-btn mt-4 w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full transition duration-300 transform hover:scale-105">
-                            ✨ Enhance Description
+                        <button class="view-project-btn mt-4 w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full transition duration-300 transform hover:scale-105"
+                                data-project-title="AI Powered Pneumonia Detection"
+                                data-project-description="My AI-Powered Pneumonia Detection project is an innovative medical image analysis system that utilizes deep learning to identify pneumonia from chest X-ray images. Developed as a web application using **Flask (Python)**, it integrates a fine-tuned **EfficientNet** model (built with **TensorFlow/Keras**) for highly accurate binary classification (Pneumonia vs. Normal). This system provides a seamless experience for medical professionals: users can upload X-ray images via a minimalistic, responsive web interface and receive immediate, AI-driven diagnostic predictions. The project showcases a robust methodology, including transfer learning and data augmentation, and is designed for easy deployment on Linux servers, highlighting the practical application of AI in healthcare diagnostics.""
+                                data-github-link="https://github.com/gomit32/pneumonia-detector-ai"
+                                data-live-demo-link="https://xyz.com">
+                            View Details
                         </button>
                     </div>
                 </div>
@@ -395,25 +520,20 @@
                     <img src="stockimg.png" alt="Stock Portfolio Heatmap Analyser Project Image" class="w-full h-56 object-cover">
                     <div class="p-6">
                         <h3 class="text-2xl font-semibold text-gray-800 dark:text-gray-100 mb-3">Stock Portfolio Heatmap Analyser</h3>
-                        <p class="text-gray-700 dark:text-gray-300 mb-4 project-description">Designed and built a tool using deep learning (CNN, TensorFlow) and financial data visualization to explore stock portfolio correlation patterns. Automated retrieval of stock price data (yfinance) and generated investment recommendations.</p>
+                        <p class="text-gray-700 dark:text-gray-300 mb-4 project-short-description">hehehe</p>
                         <div class="flex flex-wrap gap-2 mb-4">
                             <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded-full">Python</span>
                             <span class="bg-red-100 text-red-800 text-xs font-medium px-2.5 py-0.5 rounded-full">TensorFlow</span>
                             <span class="bg-purple-100 text-purple-800 text-xs font-medium px-2.5 py-0.5 rounded-full">yfinance</span>
                             <span class="bg-orange-100 text-orange-800 text-xs font-medium px-2.5 py-0.5 rounded-full">Matplotlib</span>
                         </div>
-                        <div class="flex justify-between items-center">
-                            <a href="https://github.com/gomit32/stock_portfolio_heatmap" target="_blank" class="text-indigo-600 hover:text-indigo-800 font-medium flex items-center gap-1">
-                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017 2 16.205 4.862 19.798 8.816 20.98c.48.09.654-.208.654-.462 0-.227-.008-.823-.013-1.616-2.766.6-3.35-1.336-3.35-1.336-.454-1.153-1.11-1.46-1.11-1.46-.908-.62.069-.608.069-.608 1.004.07 1.532 1.03 1.532 1.03.89 1.53 2.336 1.088 2.903.832.09-.646.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.945 0-1.09.39-1.984 1.028-2.68-.103-.253-.446-1.27.098-2.65 0 0 .84-.27 2.75 1.025A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.025 2.747-1.025.546 1.38.203 2.398.1 2.65.64.696 1.026 1.59 1.026 2.68 0 3.843-2.339 4.688-4.568 4.935.359.309.678.92.678 1.855 0 1.338-.013 2.419-.013 2.747 0 .257.172.556.659.458C19.145 19.794 22 16.205 22 12.017 22 6.484 17.523 2 12 2z" clip-rule="evenodd" /></svg>
-                                GitHub
-                            </a>
-                            <a href="#" target="_blank" class="text-purple-600 hover:text-purple-800 font-medium flex items-center gap-1">
-                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm-1 17H8V7h3v10zm5 0h-3V7h3v10z"></path></svg>
-                                Live Demo
-                            </a>
-                        </div>
-                        <button class="enhance-description-btn mt-4 w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full transition duration-300 transform hover:scale-105">
-                            ✨ Enhance Description
+                        <button class="view-project-btn mt-4 w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full transition duration-300 transform hover:scale-105"
+                                data-project-title="Stock Portfolio Heatmap Analyser"
+                                data-project-description="My Stock Portfolio Heatmap Analyzer is an AI-powered tool designed to transform financial data analysis for investors and analysts. This project uniquely leverages **deep learning** by converting stock correlation matrices into **heatmap images** and then applying a **Convolutional Neural Network (CNN)** to predict investment recommendations based on these visual patterns. It features automated historical stock price data fetching via `yfinance`, robust correlation analysis, and intuitive heatmap visualizations using **Seaborn and Matplotlib**. This modular pipeline allows for easy extension and integration into larger systems, providing a powerful solution for portfolio optimization, risk management, and automated investment insights.
+</p>"
+                                data-github-link="https://github.com/gomit32/stock_portfolio_heatmap"
+                                data-live-demo-link="https://xyz.com">
+                            View Details
                         </button>
                     </div>
                 </div>
@@ -423,23 +543,17 @@
                     <img src="smartresearch.png" alt="Smart Research Assistant Project Image" class="w-full h-56 object-cover">
                     <div class="p-6">
                         <h3 class="text-2xl font-semibold text-gray-800 dark:text-gray-100 mb-3">Smart Research Assistant</h3>
-                        <p class="text-gray-700 dark:text-gray-300 mb-4 project-description">An intelligent assistant designed to streamline research processes, likely involving natural language processing and information retrieval techniques, built with JavaScript.</p>
+                        <p class="text-gray-700 dark:text-gray-300 mb-4 project-short-description">hehehe</p>
                         <div class="flex flex-wrap gap-2 mb-4">
                             <span class="bg-yellow-100 text-yellow-800 text-xs font-medium px-2.5 py-0.5 rounded-full">JavaScript</span>
                             <span class="bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-0.5 rounded-full">NLP</span>
                         </div>
-                        <div class="flex justify-between items-center">
-                            <a href="https://github.com/gomit32/Smart-Research-Assistant" target="_blank" class="text-indigo-600 hover:text-indigo-800 font-medium flex items-center gap-1">
-                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017 2 16.205 4.862 19.798 8.816 20.98c.48.09.654-.208.654-.462 0-.227-.008-.823-.013-1.616-2.766.6-3.35-1.336-3.35-1.336-.454-1.153-1.11-1.46-1.11-1.46-.908-.62.069-.608.069-.608 1.004.07 1.532 1.03 1.532 1.03.89 1.53 2.336 1.088 2.903.832.09-.646.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.945 0-1.09.39-1.984 1.028-2.68-.103-.253-.446-1.27.098-2.65 0 0 .84-.27 2.75 1.025A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.025 2.747-1.025.546 1.38.203 2.398.1 2.65.64.696 1.026 1.59 1.026 2.68 0 3.843-2.339 4.688-4.568 4.935.359.309.678.92.678 1.855 0 1.338-.013 2.419-.013 2.747 0 .257.172.556.659.458C19.145 19.794 22 16.205 22 12.017 22 6.484 17.523 2 12 2z" clip-rule="evenodd" /></svg>
-                                GitHub
-                            </a>
-                            <a href="#" target="_blank" class="text-purple-600 hover:text-purple-800 font-medium flex items-center gap-1">
-                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm-1 17H8V7h3v10zm5 0h-3V7h3v10z"></path></svg>
-                                Live Demo
-                            </a>
-                        </div>
-                        <button class="enhance-description-btn mt-4 w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full transition duration-300 transform hover:scale-105">
-                            ✨ Enhance Description
+                        <button class="view-project-btn mt-4 w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full transition duration-300 transform hover:scale-105"
+                                data-project-title="Smart Research Assistant"
+                                data-project-description="Smart Research Assistant, a personal web-based AI tool designed to revolutionize how you interact with documents. This project allows you to summarize, question, and engage with your PDF or TXT files through a modern, responsive interface. Built with HTML, Tailwind CSS, and Vanilla JavaScript, it leverages PDF.js for robust text extraction and integrates with powerful AI models like OpenAI GPT-3.5 or Google Gemini (configurable with your API key). Key features include instant summarization upon upload, an "Ask Anything" chat mode for context-aware answers, and a "Challenge Mode" to generate logic-based questions for self-testing. The assistant also boasts a seamless dark/light theme toggle, visual loading spinners, and is fully mobile-friendly, making document understanding and exploration significantly easier and more interactive."
+                                data-github-link="https://github.com/gomit32/Smart-Research-Assistant"
+                                data-live-demo-link="https://xyz.com">
+                            View Details
                         </button>
                     </div>
                 </div>
@@ -449,23 +563,17 @@
                     <img src="bloodbank_project.png" alt="BloodBank Management System Project Image" class="w-full h-56 object-cover">
                     <div class="p-6">
                         <h3 class="text-2xl font-semibold text-gray-800 dark:text-gray-100 mb-3">BloodBank Management System</h3>
-                        <p class="text-gray-700 dark:text-gray-300 mb-4 project-description">A robust web-based application developed using HTML to efficiently manage blood donation and recipient information, streamlining critical operations within blood banks.</p>
+                        <p class="text-gray-700 dark:text-gray-300 mb-4 project-short-description">hehehe</p>
                         <div class="flex flex-wrap gap-2 mb-4">
                             <span class="bg-teal-100 text-teal-800 text-xs font-medium px-2.5 py-0.5 rounded-full">HTML</span>
                             <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded-full">Web Dev</span>
                         </div>
-                        <div class="flex justify-between items-center">
-                            <a href="https://github.com/gomit32/bloodbank" target="_blank" class="text-indigo-600 hover:text-indigo-800 font-medium flex items-center gap-1">
-                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017 2 16.205 4.862 19.798 8.816 20.98c.48.09.654-.208.654-.462 0-.227-.008-.823-.013-1.616-2.766.6-3.35-1.336-3.35-1.336-.454-1.153-1.11-1.46-1.11-1.46-.908-.62.069-.608.069-.608 1.004.07 1.532 1.03 1.532 1.03.89 1.53 2.336 1.088 2.903.832.09-.646.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.945 0-1.09.39-1.984 1.028-2.68-.103-.253-.446-1.27.098-2.65 0 0 .84-.27 2.75 1.025A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.025 2.747-1.025.546 1.38.203 2.398.1 2.65.64.696 1.026 1.59 1.026 2.68 0 3.843-2.339 4.688-4.568 4.935.359.309.678.92.678 1.855 0 1.338-.013 2.419-.013 2.747 0 .257.172.556.659.458C19.145 19.794 22 16.205 22 12.017 22 6.484 17.523 2 12 2z" clip-rule="evenodd" /></svg>
-                                GitHub
-                            </a>
-                            <a href="#" target="_blank" class="text-purple-600 hover:text-purple-800 font-medium flex items-center gap-1">
-                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm-1 17H8V7h3v10zm5 0h-3V7h3v10z"></path></svg>
-                                Live Demo
-                            </a>
-                        </div>
-                        <button class="enhance-description-btn mt-4 w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full transition duration-300 transform hover:scale-105">
-                            ✨ Enhance Description
+                        <button class="view-project-btn mt-4 w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full transition duration-300 transform hover:scale-105"
+                                data-project-title="BloodBank Management System"
+                                data-project-description=" My Blood Donation System Website is a comprehensive web-based application designed to fully automate the intricate process of blood donation and reception. This project streamlines the entire workflow, from donor registration and blood inventory management to matching recipients with suitable blood types and scheduling donation drives. It aims to create an efficient, transparent, and user-friendly platform that connects donors with those in need, ultimately enhancing the operational efficiency of blood banks and facilitating life-saving contributions."
+                                data-github-link="https://github.com/gomit32/bloodbank"
+                                data-live-demo-link="https://xyz.com">
+                            View Details
                         </button>
                     </div>
                 </div>
@@ -475,24 +583,18 @@
                     <img src="pf.png" alt="Portfolio Builder Project Image" class="w-full h-56 object-cover">
                     <div class="p-6">
                         <h3 class="text-2xl font-semibold text-gray-800 dark:text-gray-100 mb-3">Portfolio Builder</h3>
-                        <p class="text-gray-700 dark:text-gray-300 mb-4 project-description">This project is a dynamic web application designed to help users easily create and customize their professional portfolios, showcasing their skills, projects, and experience in an engaging and responsive manner.</p>
+                        <p class="text-gray-700 dark:text-gray-300 mb-4 project-short-description">hehehe</p>
                         <div class="flex flex-wrap gap-2 mb-4">
                             <span class="bg-purple-100 text-purple-800 text-xs font-medium px-2.5 py-0.5 rounded-full">Web Development</span>
                             <span class="bg-gray-100 text-gray-800 text-xs font-medium px-2.5 py-0.5 rounded-full">HTML/CSS/JS</span>
                             <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded-full">Responsive Design</span>
                         </div>
-                        <div class="flex justify-between items-center">
-                            <a href="https://github.com/gomit32/My_Portfolio_Website" target="_blank" class="text-indigo-600 hover:text-indigo-800 font-medium flex items-center gap-1">
-                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017 2 16.205 4.862 19.798 8.816 20.98c.48.09.654-.208.654-.462 0-.227-.008-.823-.013-1.616-2.766.6-3.35-1.336-3.35-1.336-.454-1.153-1.11-1.46-1.11-1.46-.908-.62.069-.608.069-.608 1.004.07 1.532 1.03 1.532 1.03.89 1.53 2.336 1.088 2.903.832.09-.646.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.945 0-1.09.39-1.984 1.028-2.68-.103-.253-.446-1.27.098-2.65 0 0 .84-.27 2.75 1.025A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.025 2.747-1.025.546 1.38.203 2.398.1 2.65.64.696 1.026 1.59 1.026 2.68 0 3.843-2.339 4.688-4.568 4.935.359.309.678.92.678 1.855 0 1.338-.013 2.419-.013 2.747 0 .257.172.556.659.458C19.145 19.794 22 16.205 22 12.017 22 6.484 17.523 2 12 2z" clip-rule="evenodd" /></svg>
-                                GitHub
-                            </a>
-                            <a href="#" target="_blank" class="text-purple-600 hover:text-purple-800 font-medium flex items-center gap-1">
-                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm-1 17H8V7h3v10zm5 0h-3V7h3v10z"></path></svg>
-                                Live Demo
-                            </a>
-                        </div>
-                        <button class="enhance-description-btn mt-4 w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full transition duration-300 transform hover:scale-105">
-                            ✨ Enhance Description
+                        <button class="view-project-btn mt-4 w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full transition duration-300 transform hover:scale-105"
+                                data-project-title="Portfolio Builder"
+                                data-project-description=" Welcome to my professional portfolio website! This project is a dynamic, single-page web application designed to showcase my skills, projects, and professional journey as an aspiring developer. Built with **HTML5, CSS3, and JavaScript**, it leverages the modern utility-first framework **Tailwind CSS** for a responsive and engaging design. Key features include an interactive hero section, a rotating image carousel in the "About Me," and detailed skill breakdowns. My five key projects—including an **AI-powered Pneumonia Detector**, a **Stock Portfolio Heatmap Analyser**, and this **Portfolio Builder website** itself—are presented with individual modals, offering detailed descriptions and direct links to their GitHub repositories and live demos. The site also integrates the **Google Gemini API** for enhanced project descriptions, features a professional experience timeline, and allows users to seamlessly switch between dark and light themes for optimal viewing."
+                                data-github-link="https://github.com/gomit32/My_Portfolio_Website"
+                                data-live-demo-link="https://xyz.com">
+                            View Details
                         </button>
                     </div>
                 </div>
@@ -517,6 +619,11 @@
                         <p class="text-sm leading-snug tracking-wide text-gray-700 dark:text-gray-300 text-opacity-100">
                             Bharat Intern | Oct 2024 – Dec 2024
                         </p>
+                        <button class="view-experience-btn mt-4 w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full transition duration-300 transform hover:scale-105"
+                                data-experience-title="Web Development Intern"
+                                data-experience-description="xyz...">
+                            View Details
+                        </button>
                     </div>
                 </div>
 
@@ -531,6 +638,11 @@
                         <p class="text-sm leading-snug tracking-wide text-gray-700 dark:text-gray-300 text-opacity-100">
                             Codsoft | July 2024 – Aug 2024
                         </p>
+                        <button class="view-experience-btn mt-4 w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full transition duration-300 transform hover:scale-105"
+                                data-experience-title="Data Science Intern"
+                                data-experience-description="xyz...">
+                            View Details
+                        </button>
                     </div>
                 </div>
 
@@ -545,6 +657,11 @@
                         <p class="text-sm leading-snug tracking-wide text-gray-700 dark:text-gray-300 text-opacity-100">
                             Participation in a major hackathon.
                         </p>
+                        <button class="view-experience-btn mt-4 w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full transition duration-300 transform hover:scale-105"
+                                data-experience-title="Hack Fest Geeks for Geeks"
+                                data-experience-description="xyz...">
+                            View Details
+                        </button>
                     </div>
                 </div>
 
@@ -559,6 +676,11 @@
                         <p class="text-sm leading-snug tracking-wide text-gray-700 dark:text-gray-300 text-opacity-100">
                             Achieved Global Rank Under 50 out of 100,000+ participants.
                         </p>
+                        <button class="view-experience-btn mt-4 w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full transition duration-300 transform hover:scale-105"
+                                data-experience-title="Vultur Cloud Global Rank"
+                                data-experience-description="xyz...">
+                            View Details
+                        </button>
                     </div>
                 </div>
 
@@ -573,6 +695,11 @@
                         <p class="text-sm leading-snug tracking-wide text-gray-700 dark:text-gray-300 text-opacity-100">
                             Achieved 2nd place in an AI-integrated drone development project.
                         </p>
+                        <button class="view-experience-btn mt-4 w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full transition duration-300 transform hover:scale-105"
+                                data-experience-title="AI-integrated Drone Project"
+                                data-experience-description="xyz...">
+                            View Details
+                        </button>
                     </div>
                 </div>
             </div>
@@ -584,24 +711,26 @@
         <div class="container mx-auto px-4 animate-fadeIn delay-200">
             <h2 class="text-4xl font-bold text-center mb-12 text-gray-800 dark:text-gray-100">Certifications</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Certification Card 1: ReactJS | Infosys Springboard -->
+                <!-- Certification Card 1: Infosys Springboard -->
                 <div class="bg-gray-50 dark:bg-gray-900 p-6 rounded-xl shadow-md flex items-center gap-4 transform hover:scale-105 transition duration-300 animate-fadeIn delay-300">
                     <div class="flex-shrink-0 text-indigo-500">
                         <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.001 12.001 0 002.92 12c0 3.072 1.09 5.852 3.04 7.168A12.001 12.001 0 0012 21.056c3.072 0 5.852-1.09 7.168-3.04A12.001 12.001 0 0021.08 12c0-3.072-1.09-5.852-3.04-7.168z"></path></svg>
                     </div>
                     <div>
-                        <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-100">ReactJS</h3>
+                        <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-100">Data Analysis</h3>
                         <p class="text-gray-600 dark:text-gray-300">Infosys Springboard</p>
+                        <a href="chrome-extension://efaidnbmnnnibpcajpcglclefindmkaj/https://infyspringboard.onwingspan.com/public-assets/infosysheadstart/cert/lex_auth_0130944106610360321793_shared/1-0672739b-fbc0-4ef7-a751-bb947c08ffc6.pdf" target="_blank" class="text-blue-500 hover:text-blue-700 text-sm font-medium mt-2 block">View Certificate</a>
                     </div>
                 </div>
-                <!-- Certification Card 2: Data Analysis | Infosys Springboard -->
+                <!-- Certification Card 2: Infosys Springboard -->
                 <div class="bg-gray-50 dark:bg-gray-900 p-6 rounded-xl shadow-md flex items-center gap-4 transform hover:scale-105 transition duration-300 animate-fadeIn delay-400">
                     <div class="flex-shrink-0 text-green-500">
                         <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.001 12.001 0 002.92 12c0 3.072 1.09 5.852 3.04 7.168A12.001 12.001 0 0012 21.056c3.072 0 5.852-1.09 7.168-3.04A12.001 12.001 0 0021.08 12c0-3.072-1.09-5.852-3.04-7.168z"></path></svg>
                     </div>
                     <div>
-                        <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-100">Data Analysis</h3>
+                        <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-100">ReactJS</h3>
                         <p class="text-gray-600 dark:text-gray-300">Infosys Springboard</p>
+                        <a href="chrome-extension://efaidnbmnnnibpcajpcglclefindmkaj/https://infyspringboard.onwingspan.com/public-assets/infosysheadstart/cert/lex_10648877150323546000_shared/1-285b16a3-a163-4e71-8f89-4d39e9dc04e1.pdf" target="_blank" class="text-blue-500 hover:text-blue-700 text-sm font-medium mt-2 block">View Certificate</a>
                     </div>
                 </div>
                 <!-- Certification Card 3: Deep learning for developers | Infosys -->
@@ -612,6 +741,7 @@
                     <div>
                         <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-100">Deep learning for developers</h3>
                         <p class="text-gray-600 dark:text-gray-300">Infosys</p>
+                        <a href="file://C:\\Users\acer\Downloads\1-f73a8a89-3cde-4156-8dc0-38ea83ce58a0 (1).pdf" target="_blank" class="text-blue-500 hover:text-blue-700 text-sm font-medium mt-2 block">View Certificate</a>
                     </div>
                 </div>
                 <!-- Certification Card 4: JavaScript | Infosys Springboard -->
@@ -622,6 +752,7 @@
                     <div>
                         <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-100">JavaScript</h3>
                         <p class="text-gray-600 dark:text-gray-300">Infosys Springboard</p>
+                        <a href="https://1drv.ms/b/c/bd1142fb25fb8c57/EcM0o7hjn5xHu-JbOaXaV1EB1N7A_CrpErTiip73evV_bQ?e=FxeTgA" target="_blank" class="text-blue-500 hover:text-blue-700 text-sm font-medium mt-2 block">View Certificate</a>
                     </div>
                 </div>
                 <!-- Certification Card 5: Data Visualization with Python | IBM -->
@@ -632,6 +763,7 @@
                     <div>
                         <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-100">Data Visualization with Python</h3>
                         <p class="text-gray-600 dark:text-gray-300">IBM</p>
+                        <a href="https://coursera.org/verify/DQST65EGPDYC" target="_blank" class="text-blue-500 hover:text-blue-700 text-sm font-medium mt-2 block">View Certificate</a>
                     </div>
                 </div>
                 <!-- Certification Card 6: AWS Solution Architect | AWS -->
@@ -642,6 +774,73 @@
                     <div>
                         <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-100">AWS Solution Architect</h3>
                         <p class="text-gray-600 dark:text-gray-300">AWS</p>
+                        <a href="https://1drv.ms/b/c/bd1142fb25fb8c57/EewNBZBPvFxBqD64KzwOnZUBXi8ThHA8rr7eSv1SdkFg_w?e=AwC19z" target="_blank" class="text-blue-500 hover:text-blue-700 text-sm font-medium mt-2 block">View Certificate</a>
+                    </div>
+                </div>
+                <!-- certificate 7-->
+                <div class="bg-gray-50 dark:bg-gray-900 p-6 rounded-xl shadow-md flex items-center gap-4 transform hover:scale-105 transition duration-300 animate-fadeIn delay-900">
+                    <div class="flex-shrink-0 text-indigo-500">
+                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.001 12.001 0 002.92 12c0 3.072 1.09 5.852 3.04 7.168A12.001 12.001 0 0012 21.056c3.072 0 5.852-1.09 7.168-3.04A12.001 12.001 0 0021.08 12c0-3.072-1.09-5.852-3.04-7.168z"></path></svg>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-100">Java Programming</h3>
+                        <p class="text-gray-600 dark:text-gray-300">Coursera</p>
+                        <a href="https://www.coursera.org/account/accomplishments/verify/K26CW78M4PRF" target="_blank" class="text-blue-500 hover:text-blue-700 text-sm font-medium mt-2 block">View Certificate</a>
+                    </div>
+                </div>
+                <!--certificate 8   -->
+                <div class="bg-gray-50 dark:bg-gray-900 p-6 rounded-xl shadow-md flex items-center gap-4 transform hover:scale-105 transition duration-300 animate-fadeIn delay-1000">
+                    <div class="flex-shrink-0 text-green-500">
+                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.001 12.001 0 002.92 12c0 3.072 1.09 5.852 3.04 7.168A12.001 12.001 0 0012 21.056c3.072 0 5.852-1.09 7.168-3.04A12.001 12.001 0 0021.08 12c0-3.072-1.09-5.852-3.04-7.168z"></path></svg>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-100">Python Programming</h3>
+                        <p class="text-gray-600 dark:text-gray-300">Coursera</p>
+                        <a href="https://www.coursera.org/account/accomplishments/verify/PRUATXYMY8FJ" target="_blank" class="text-blue-500 hover:text-blue-700 text-sm font-medium mt-2 block">View Certificate</a>
+                    </div>
+                </div>
+                <!--certificate 9-->
+                <div class="bg-gray-50 dark:bg-gray-900 p-6 rounded-xl shadow-md flex items-center gap-4 transform hover:scale-105 transition duration-300 animate-fadeIn delay-1100">
+                    <div class="flex-shrink-0 text-purple-500">
+                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.001 12.001 0 002.92 12c0 3.072 1.09 5.852 3.04 7.168A12.001 12.001 0 0012 21.056c3.072 0 5.852-1.09 7.168-3.04A12.001 12.001 0 0021.08 12c0-3.072-1.09-5.852-3.04-7.168z"></path></svg>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-100">BlockChain Basics</h3>
+                        <p class="text-gray-600 dark:text-gray-300">University at Buffalo</p>
+                        <a href="https://www.coursera.org/account/accomplishments/verify/PNLWCY3KDZ9Q" target="_blank" class="text-blue-500 hover:text-blue-700 text-sm font-medium mt-2 block">View Certificate</a>
+                    </div>
+                </div>
+                <!--certificate 10-->
+                <div class="bg-gray-50 dark:bg-gray-900 p-6 rounded-xl shadow-md flex items-center gap-4 transform hover:scale-105 transition duration-300 animate-fadeIn delay-1200">
+                    <div class="flex-shrink-0 text-yellow-500">
+                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.001 12.001 0 002.92 12c0 3.072 1.09 5.852 3.04 7.168A12.001 12.001 0 0012 21.056c3.072 0 5.852-1.09 7.168-3.04A12.001 12.001 0 0021.08 12c0-3.072-1.09-5.852-3.04-7.168z"></path></svg>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-100">AI Foundations for Everyone</h3>
+                        <p class="text-gray-600 dark:text-gray-300">IBM</p>
+                        <a href="https://www.coursera.org/account/accomplishments/specialization/WUGJDVMUNQLT" target="_blank" class="text-blue-500 hover:text-blue-700 text-sm font-medium mt-2 block">View Certificate</a>
+                    </div>
+                </div>
+                <!--certificate 11-->
+                <div class="bg-gray-50 dark:bg-gray-900 p-6 rounded-xl shadow-md flex items-center gap-4 transform hover:scale-105 transition duration-300 animate-fadeIn delay-1300">
+                    <div class="flex-shrink-0 text-teal-500">
+                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.001 12.001 0 002.92 12c0 3.072 1.09 5.852 3.04 7.168A12.001 12.001 0 0012 21.056c3.072 0 5.852-1.09 7.168-3.04A12.001 12.001 0 0021.08 12c0-3.072-1.09-5.852-3.04-7.168z"></path></svg>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-100">Building AI Powered Chatbots</h3>
+                        <p class="text-gray-600 dark:text-gray-300">IBM</p>
+                        <a href="https://www.coursera.org/account/accomplishments/verify/4VRHGCVU84XA" target="_blank" class="text-blue-500 hover:text-blue-700 text-sm font-medium mt-2 block">View Certificate</a>
+                    </div>
+                </div>
+                <!--certificate 12-->
+                <div class="bg-gray-50 dark:bg-gray-900 p-6 rounded-xl shadow-md flex items-center gap-4 transform hover:scale-105 transition duration-300 animate-fadeIn delay-1400">
+                    <div class="flex-shrink-0 text-orange-500">
+                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.001 12.001 0 002.92 12c0 3.072 1.09 5.852 3.04 7.168A12.001 12.001 0 0012 21.056c3.072 0 5.852-1.09 7.168-3.04A12.001 12.001 0 0021.08 12c0-3.072-1.09-5.852-3.04-7.168z"></path></svg>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-100">Cryptography</h3>
+                        <p class="text-gray-600 dark:text-gray-300">IBM</p>
+                        <a href="https://www.coursera.org/account/accomplishments/verify/5XZJR7BQNJSY" target="_blank" class="text-blue-500 hover:text-blue-700 text-sm font-medium mt-2 block">View Certificate</a>
                     </div>
                 </div>
             </div>
@@ -669,7 +868,7 @@
                 <!-- Contact Form (Placeholder) -->
                 <div class="md:w-1/2 bg-white dark:bg-gray-800 p-8 rounded-xl shadow-lg animate-slideInLeft delay-300">
                     <h3 class="text-2xl font-semibold text-gray-800 dark:text-gray-100 mb-6">Send Me a Message</h3>
-                    <form action="https://formspree.io/f/youruniqueid" method="POST">
+                    <form action="#" method="POST">
                         <div class="mb-4">
                             <label for="name" class="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-2">Name</label>
                             <input type="text" id="name" name="name" class="shadow appearance-none border rounded-lg w-full py-3 px-4 text-gray-700 dark:text-gray-200 dark:bg-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition duration-200" placeholder="Your Name">
@@ -695,7 +894,7 @@
                     <h3 class="text-2xl font-semibold text-gray-800 dark:text-gray-100 mb-6">Find Me Online</h3>
                     <div class="space-y-6">
                         <!-- LinkedIn -->
-                        <a href="https://www.linkedin.com/in/gomit-tyagi-b4a70228/" target="_blank" class="flex items-center gap-4 text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition duration-300 group">
+                        <a href="https://www.linkedin.com/in/gomit-tyagi-b4a702228/" target="_blank" class="flex items-center gap-4 text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition duration-300 group">
                             <div class="p-3 bg-blue-100 dark:bg-blue-900 rounded-full group-hover:bg-blue-200 dark:group-hover:bg-blue-800 transition duration-300">
                                 <svg class="w-7 h-7 text-blue-600 dark:text-blue-400" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
                             </div>
@@ -716,7 +915,7 @@
                             <span class="text-lg font-medium">gomit32@gmail.com</span>
                         </a>
                         <!-- Instagram (Placeholder - add your handle if you want to include it) -->
-                        <a href="https://www.instagram.com/gomittyagi?igsh=bTA2dmx5NXN0eWxl" target="_blank" class="flex items-center gap-4 text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition duration-300 group">
+                        <a href="https://www.instagram.com/gomittyagi" target="_blank" class="flex items-center gap-4 text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition duration-300 group">
                             <div class="p-3 bg-pink-100 dark:bg-pink-900 rounded-full group-hover:bg-pink-200 dark:group-hover:bg-pink-800 transition duration-300">
                                 <svg class="w-7 h-7 text-pink-600 dark:text-pink-400" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4c0 3.2-2.6 5.8-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8C2 4.6 4.6 2 7.8 2zm-.2 2A4.8 4.8 0 004 7.8v8.4c0 2.6 2.2 4.8 4.8 4.8h8.4c2.6 0 4.8-2.2 4.8-4.8V7.8A4.8 4.8 0 0016.2 4H7.6zm9.65 1.5a1.25 1.25 0 11-2.5 0 1.25 1.25 0 012.5 0zM12 7a5 5 0 100 10 5 5 0 000-10zm0 2a3 3 0 110 6 3 3 0 010-6z"/></svg>
                             </div>
@@ -739,17 +938,49 @@
         </div>
     </footer>
 
-    <!-- Modal for LLM output -->
-    <div id="llmModal" class="modal">
+    <!-- Modal for Project Details -->
+    <div id="projectDetailModal" class="modal">
         <div class="modal-content">
-            <span class="close-button">&times;</span>
+            <span class="close-button" id="closeProjectDetailModal">&times;</span>
+            <h3 class="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-4" id="projectModalTitle"></h3>
+            <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-6" id="projectModalDescription"></p>
+            <div class="flex flex-col sm:flex-row justify-center sm:justify-start gap-4 mb-4">
+                <a id="projectModalGithub" target="_blank" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-6 rounded-full shadow transition duration-300 transform hover:scale-105 flex items-center justify-center gap-2">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017 2 16.205 4.862 19.798 8.816 20.98c.48.09.654-.208.654-.462 0-.227-.008-.823-.013-1.616-2.766.6-3.35-1.336-3.35-1.336-.454-1.153-1.11-1.46-1.11-1.46-.908-.62.069-.608.069-.608 1.004.07 1.532 1.03 1.532 1.03.89 1.53 2.336 1.088 2.903.832.09-.646.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.945 0-1.09.39-1.984 1.028-2.68-.103-.253-.446-1.27.098-2.65 0 0 .84-.27 2.75 1.025A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.025 2.747-1.025.546 1.38.203 2.398.1 2.65.64.696 1.026 1.59 1.026 2.68 0 3.843-2.339 4.688-4.568 4.935.359.309.678.92.678 1.855 0 1.338-.013 2.419-.013 2.747 0 .257.172.556.659.458C19.145 19.794 22 16.205 22 12.017 22 6.484 17.523 2 12 2z" clip-rule="evenodd" /></svg>
+                    GitHub
+                </a>
+                <a id="projectModalLiveDemo" target="_blank" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-6 rounded-full shadow transition duration-300 transform hover:scale-105 flex items-center justify-center gap-2">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm-1 17H8V7h3v10zm5 0h-3V7h3v10z"></path></svg>
+                    View Project
+                </a>
+            </div>
+            <!-- LLM Enhance Button within Project Detail Modal -->
+            <button id="enhanceDescriptionInModal" class="mt-4 w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full transition duration-300 transform hover:scale-105">
+                ✨ Enhance Description (AI)
+            </button>
+        </div>
+    </div>
+
+    <!-- Modal for LLM output (renamed from llmModal to avoid conflict) -->
+    <div id="llmEnhanceModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" id="closeLlmEnhanceModal">&times;</span>
             <h3 class="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-4">Enhanced Description ✨</h3>
             <div id="llmOutput" class="text-gray-700 dark:text-gray-300 leading-relaxed"></div>
             <div id="llmLoading" class="loading-spinner hidden"></div>
         </div>
     </div>
 
-    <!-- JavaScript for Mobile Menu, Smooth Scrolling, and Theme Toggle -->
+    <!-- Modal for Experience Details -->
+    <div id="experienceDetailModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" id="closeExperienceDetailModal">&times;</span>
+            <h3 class="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-4" id="experienceModalTitle"></h3>
+            <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-6" id="experienceModalDescription"></p>
+        </div>
+    </div>
+
+    <!-- JavaScript for Mobile Menu, Smooth Scrolling, Theme Toggle, Carousel, and Modals -->
     <script>
         // Theme Toggle Functionality
         const themeToggleBtn = document.getElementById('theme-toggle');
@@ -811,65 +1042,160 @@
             
         });
 
-        // Gemini API Integration for Project Description Enhancement
-        const enhanceButtons = document.querySelectorAll('.enhance-description-btn');
-        const llmModal = document.getElementById('llmModal');
-        const llmOutput = document.getElementById('llmOutput');
-        const llmLoading = document.getElementById('llmLoading');
-        const closeModalButton = document.querySelector('.close-button');
+        // Project Detail Modal Functionality
+        const projectDetailModal = document.getElementById('projectDetailModal');
+        const closeProjectDetailModalButton = document.getElementById('closeProjectDetailModal');
+        const projectModalTitle = document.getElementById('projectModalTitle');
+        const projectModalDescription = document.getElementById('projectModalDescription');
+        const projectModalGithub = document.getElementById('projectModalGithub');
+        const projectModalLiveDemo = document.getElementById('projectModalLiveDemo');
+        const viewProjectButtons = document.querySelectorAll('.view-project-btn');
+        const enhanceDescriptionInModalButton = document.getElementById('enhanceDescriptionInModal'); // New button
 
-        enhanceButtons.forEach(button => {
-            button.addEventListener('click', async (event) => {
-                const projectDescriptionElement = event.target.closest('.p-6').querySelector('.project-description');
-                const currentDescription = projectDescriptionElement ? projectDescriptionElement.textContent.trim() : '';
+        viewProjectButtons.forEach(button => {
+            button.addEventListener('click', (event) => {
+                const title = event.target.dataset.projectTitle;
+                const description = event.target.dataset.projectDescription;
+                const githubLink = event.target.dataset.githubLink;
+                const liveDemoLink = event.target.dataset.liveDemoLink;
 
-                llmOutput.textContent = ''; // Clear previous content
-                llmLoading.classList.remove('hidden'); // Show loading spinner
-                llmModal.style.display = 'flex'; // Show modal
+                projectModalTitle.textContent = title;
+                projectModalDescription.textContent = description; // Set the description from data-attribute
+                projectModalGithub.href = githubLink;
+                projectModalLiveDemo.href = liveDemoLink;
 
-                try {
-                    let chatHistory = [];
-                    const prompt = `Expand and make more creative the following project description for a professional portfolio website: '${currentDescription}'. Focus on impact, technologies used, and problem-solving. Keep it concise, around 50-70 words.`;
-                    chatHistory.push({ role: "user", parts: [{ text: prompt }] });
-
-                    const payload = { contents: chatHistory };
-                    const apiKey = ""; // Canvas will automatically provide the API key
-                    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
-
-                    const response = await fetch(apiUrl, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(payload)
-                    });
-
-                    const result = await response.json();
-
-                    if (result.candidates && result.candidates.length > 0 &&
-                        result.candidates[0].content && result.candidates[0].content.parts &&
-                        result.candidates[0].content.parts.length > 0) {
-                        const text = result.candidates[0].content.parts[0].text;
-                        llmOutput.textContent = text;
-                    } else {
-                        llmOutput.textContent = 'Failed to generate description. Please try again.';
-                    }
-                } catch (error) {
-                    console.error('Error calling Gemini API:', error);
-                    llmOutput.textContent = 'An error occurred while enhancing the description.';
-                } finally {
-                    llmLoading.classList.add('hidden'); // Hide loading spinner
-                }
+                projectDetailModal.style.display = 'flex'; // Show modal
             });
         });
 
-        // Close modal when close button is clicked
-        closeModalButton.addEventListener('click', () => {
-            llmModal.style.display = 'none';
+        closeProjectDetailModalButton.addEventListener('click', () => {
+            projectDetailModal.style.display = 'none';
         });
 
         // Close modal when clicking outside of the modal content
         window.addEventListener('click', (event) => {
-            if (event.target == llmModal) {
-                llmModal.style.display = 'none';
+            if (event.target == projectDetailModal) {
+                projectDetailModal.style.display = 'none';
+            }
+        });
+
+
+        // LLM Enhance Modal Functionality
+        const llmEnhanceModal = document.getElementById('llmEnhanceModal');
+        const closeLlmEnhanceModalButton = document.getElementById('closeLlmEnhanceModal');
+        const llmOutput = document.getElementById('llmOutput');
+        const llmLoading = document.getElementById('llmLoading');
+        
+        // This button is now inside the project detail modal
+        enhanceDescriptionInModalButton.addEventListener('click', async () => {
+            const currentDescription = projectModalDescription.textContent.trim(); // Get description from project modal
+
+            llmOutput.textContent = ''; // Clear previous content
+            llmLoading.classList.remove('hidden'); // Show loading spinner
+            llmEnhanceModal.style.display = 'flex'; // Show LLM modal
+
+            try {
+                let chatHistory = [];
+                const prompt = `Expand and make more creative the following project description for a professional portfolio website: '${currentDescription}'. Focus on impact, technologies used, and problem-solving. Keep it concise, around 50-70 words.`;
+                chatHistory.push({ role: "user", parts: [{ text: prompt }] });
+
+                const payload = { contents: chatHistory };
+                const apiKey = ""; // Canvas will automatically provide the API key
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                const result = await response.json();
+
+                if (result.candidates && result.candidates.length > 0 &&
+                    result.candidates[0].content && result.candidates[0].content.parts &&
+                    result.candidates[0].content.parts.length > 0) {
+                    const text = result.candidates[0].content.parts[0].text;
+                    llmOutput.textContent = text;
+                } else {
+                    llmOutput.textContent = 'Failed to generate description. Please try again.';
+                }
+            } catch (error) {
+                console.error('Error calling Gemini API:', error);
+                llmOutput.textContent = 'An error occurred while enhancing the description.';
+            } finally {
+                llmLoading.classList.add('hidden'); // Hide loading spinner
+            }
+        });
+
+        closeLlmEnhanceModalButton.addEventListener('click', () => {
+            llmEnhanceModal.style.display = 'none';
+        });
+
+        window.addEventListener('click', (event) => {
+            if (event.target == llmEnhanceModal) {
+                llmEnhanceModal.style.display = 'none';
+            }
+        });
+
+
+        // About Me Image Carousel
+        const carouselImages = document.querySelectorAll('.carousel-image');
+        let currentImageIndex = 0;
+
+        function showNextImage() {
+            carouselImages[currentImageIndex].classList.remove('active');
+            currentImageIndex = (currentImageIndex + 1) % carouselImages.length;
+            carouselImages[currentImageIndex].classList.add('active');
+        }
+
+        // Initialize carousel: show the first image
+        if (carouselImages.length > 0) {
+            carouselImages[0].classList.add('active');
+            setInterval(showNextImage, 3000); // Change image every 3 seconds
+        }
+
+        // Name Motion Effect (Split and Animate Letters)
+        const animatedNameElement = document.getElementById('animated-name');
+        const nameText = animatedNameElement.textContent;
+        animatedNameElement.textContent = ''; // Clear original text
+
+        // Wrap each letter in a span for individual animation
+        nameText.split('').forEach((char, index) => {
+            const span = document.createElement('span');
+            span.textContent = char;
+            // Add a non-breaking space for actual spaces to maintain layout
+            if (char === ' ') {
+                span.innerHTML = '&nbsp;';
+            }
+            animatedNameElement.appendChild(span);
+        });
+
+        // Experience Detail Modal Functionality
+        const experienceDetailModal = document.getElementById('experienceDetailModal');
+        const closeExperienceDetailModalButton = document.getElementById('closeExperienceDetailModal');
+        const experienceModalTitle = document.getElementById('experienceModalTitle');
+        const experienceModalDescription = document.getElementById('experienceModalDescription');
+        const viewExperienceButtons = document.querySelectorAll('.view-experience-btn');
+
+        viewExperienceButtons.forEach(button => {
+            button.addEventListener('click', (event) => {
+                const title = event.target.dataset.experienceTitle;
+                const description = event.target.dataset.experienceDescription;
+
+                experienceModalTitle.textContent = title;
+                experienceModalDescription.textContent = description;
+
+                experienceDetailModal.style.display = 'flex'; // Show modal
+            });
+        });
+
+        closeExperienceDetailModalButton.addEventListener('click', () => {
+            experienceDetailModal.style.display = 'none';
+        });
+
+        window.addEventListener('click', (event) => {
+            if (event.target == experienceDetailModal) {
+                experienceDetailModal.style.display = 'none';
             }
         });
     </script>
